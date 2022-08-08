@@ -5,7 +5,7 @@ using UnityEngine;
 public class DirtController : MonoBehaviour
 {
     public static DirtController instance;
-    private const float pixelSize = 0.2f;
+    public const float pixelSize = 0.2f;
     private const int batchSize = 1000;
     [SerializeField] int numParticles;
     [SerializeField] float suckSpeed;
@@ -210,12 +210,12 @@ public class DirtController : MonoBehaviour
             dynamicParticleIndex = 0;
 		}
 
-        string s = "offsets: ";
+        /*string s = "offsets: ";
         for (int i = 0; i < materials.Length; i++)
         {
             s += "[" + offsets[i] + "] ";
         }
-        Debug.Log(s);
+        Debug.Log(s);*/
         Draw();
     }
 }

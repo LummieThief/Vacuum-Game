@@ -1,0 +1,102 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class DustBunnyAI : MonoBehaviour
+{
+    [SerializeField] float jumpCooldown;
+    private float jumpCooldownTimer;
+    [SerializeField] float jumpDistance;
+    private float distanceJumped;
+    [SerializeField] float jumpSpeed;
+    [SerializeField] int numDustParticles;
+
+    private bool jumping;
+    private bool collided;
+    private Vector2 direction;
+    private Vector2 nextDirection;
+    private float radius;
+    // Start is called before the first frame update
+    void Start()
+    {
+        radius = transform.localScale.x / 2f;
+        direction = Random.rotation.eulerAngles;
+        direction.Normalize();
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        if (jumping)
+		{
+            float dist = jumpSpeed * Time.deltaTime;
+            
+            if (dist + distanceJumped > jumpDistance)
+			{
+                dist = jumpDistance - distanceJumped;
+                transform.Translate(direction * dist);
+                Land();
+            }
+            else
+			{
+                distanceJumped += dist;
+                transform.Translate(direction * dist);
+            }
+        }
+        else
+		{
+            if (jumpCooldownTimer <= 0)
+            {
+                Jump();
+            }
+            else
+            {
+                jumpCooldownTimer -= Time.deltaTime;
+            }
+        }
+    }
+
+    private void Jump()
+	{
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position, radius, direction, jumpDistance, LayerMask.GetMask("Walls"));
+        if (hit.collider != null)
+		{
+            //dust bunny will bump into a wall
+            Vector2 point = hit.point + hit.normal * radius;
+            Debug.DrawLine(hit.point, point, Color.blue, jumpCooldown);
+            distanceJumped = jumpDistance - Vector2.Distance(transform.position, point);
+            collided = true;
+            nextDirection = RotateVector2(hit.normal, Random.Range(-45, 45));
+		}
+        else
+		{
+            distanceJumped = 0;
+            collided = false;
+		}
+        jumpCooldownTimer = jumpCooldown;
+        jumping = true;
+    }
+
+    private void Land()
+	{
+        jumping = false;
+        if (collided)
+        {
+            direction = nextDirection;
+        }
+        float r = radius - DirtController.pixelSize / 2;
+        for (int i = 0; i < numDustParticles; i++)
+		{
+            DirtController.instance.AddParticle((Vector2)transform.position + Vector2.up * Random.Range(-r, r) + Vector2.right * Random.Range(-r, r));
+		}
+    }
+
+    private Vector2 RotateVector2(Vector2 v, float delta)
+    {
+        delta *= Mathf.Deg2Rad;
+        return new Vector2(
+            v.x * Mathf.Cos(delta) - v.y * Mathf.Sin(delta),
+            v.x * Mathf.Sin(delta) + v.y * Mathf.Cos(delta)
+        );
+    }
+}
