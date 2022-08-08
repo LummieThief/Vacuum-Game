@@ -20,8 +20,7 @@ public class DustBunnyAI : MonoBehaviour
     void Start()
     {
         radius = transform.localScale.x / 2f;
-        direction = Random.rotation.eulerAngles;
-        direction.Normalize();
+        direction = Random.insideUnitCircle.normalized;
     }
 
     // Update is called once per frame
@@ -87,7 +86,8 @@ public class DustBunnyAI : MonoBehaviour
         float r = radius - DirtController.pixelSize / 2;
         for (int i = 0; i < numDustParticles; i++)
 		{
-            DirtController.instance.AddParticle((Vector2)transform.position + Vector2.up * Random.Range(-r, r) + Vector2.right * Random.Range(-r, r));
+            int c = Random.Range(0, DirtController.instance.materials.Length - 1);
+            DirtController.instance.AddParticle((Vector2)transform.position + Vector2.up * Random.Range(-r, r) + Vector2.right * Random.Range(-r, r), c);
 		}
     }
 

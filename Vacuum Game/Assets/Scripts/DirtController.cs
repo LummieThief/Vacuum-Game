@@ -39,7 +39,7 @@ public class DirtController : MonoBehaviour
         for (int c = 0; c < matrices.Length; c++)
         {
             matrices[c] = new List<Matrix4x4[]>();
-            matrices[c].Add(new Matrix4x4[1000]);
+            matrices[c].Add(new Matrix4x4[batchSize]);
         }
 
         offsets = new int[matrices.Length];
@@ -156,7 +156,7 @@ public class DirtController : MonoBehaviour
         
         colorMatrix[b][i] = lastParticle;
         offsets[c]--;
-        if (offsetInLastMatrix == 0)
+        if (offsetInLastMatrix == 0 && colorMatrix.Count > 1)
 		{
             colorMatrix.RemoveAt(colorMatrix.Count - 1);
 		}
@@ -216,6 +216,19 @@ public class DirtController : MonoBehaviour
             s += "[" + offsets[i] + "] ";
         }
         Debug.Log(s);*/
+        string s1 = "Lengths: ";
+        for (int i = 0; i < materials.Length; i++)
+		{
+            if (matrices[i] == null)
+			{
+                s1 += "-1 ";
+			}
+            else
+			{
+                s1 += matrices[i].Count;
+			}
+		}
+        Debug.Log(s1);
         Draw();
     }
 }
