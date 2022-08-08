@@ -167,68 +167,61 @@ public class DirtController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Mouse0))
 		{
-            Matrix4x4 matrix;
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            float distance;
-            Vector4 column;
-            for (int b = 0; b < matrices[dynamicParticleIndex].Count; b++)
-            {
-                int particlesInBatch = batchSize;
-                if (b == matrices[dynamicParticleIndex].Count - 1)
-                {
-                    particlesInBatch = offsets[dynamicParticleIndex] % batchSize + 1;
-                }
-
-                for (int i = 0; i < particlesInBatch; i++)
-                {
-                    // runs for each particle of a certain color, with the color alternating each frame
-                    matrix = matrices[dynamicParticleIndex][b][i];
-                    column = matrix.GetColumn(3);
-                    distance = Vector2.Distance(column, mousePos);
-                    if (distance < suckDistance)
-					{
-                        distance /= suckDistance;
-                        distance = Mathf.Pow(distance, 2);
-                        Vector2 newPos = Vector2.MoveTowards(column, mousePos, (1-distance) * Time.deltaTime * suckSpeed);
-                        column.x = newPos.x;
-                        column.y = newPos.y;
-                        if (Vector2.Distance(column, mousePos) < destroyDistance)
-						{
-                            RemoveParticle(dynamicParticleIndex, b, i);
-						}
-                        else
-						{
-                            matrices[dynamicParticleIndex][b][i].SetColumn(3, column);
-                        }
-                    }
-                }
-            }
+            SuckCircle(mousePos, suckDistance);
         }
+
+
         dynamicParticleIndex++;
         if (dynamicParticleIndex >= materials.Length)
 		{
             dynamicParticleIndex = 0;
 		}
 
-        /*string s = "offsets: ";
-        for (int i = 0; i < materials.Length; i++)
-        {
-            s += "[" + offsets[i] + "] ";
-        }
-        Debug.Log(s);*/
-        string s1 = "Lengths: ";
-        for (int i = 0; i < materials.Length; i++)
-		{
-            if (matrices[i] == null)
-			{
-                s1 += "-1 ";
-			}
-            else
-			{
-                s1 += matrices[i].Count;
-			}
-		}
-        Debug.Log(s1);
         Draw();
     }
+    
+    public void SuckCircle(Vector2 center, float radius)
+	{
+        Matrix4x4 matrix;
+        float distance;
+        Vector4 column;
+        for (int b = 0; b < matrices[dynamicParticleIndex].Count; b++)
+        {
+            int particlesInBatch = batchSize;
+            if (b == matrices[dynamicParticleIndex].Count - 1)
+            {
+                particlesInBatch = offsets[dynamicParticleIndex] % batchSize + 1;
+            }
+
+            for (int i = 0; i < particlesInBatch; i++)
+            {
+                // runs for each particle of a certain color, with the color alternating each frame
+                matrix = matrices[dynamicParticleIndex][b][i];
+                column = matrix.GetColumn(3);
+                distance = Vector2.Distance(column, center);
+                if (distance < radius)
+                {
+                    distance /= radius;
+                    distance = Mathf.Pow(distance, 2);
+                    Vector2 newPos = Vector2.MoveTowards(column, center, (1 - distance) * Time.deltaTime * suckSpeed);
+                    column.x = newPos.x;
+                    column.y = newPos.y;
+                    if (Vector2.Distance(column, center) < destroyDistance)
+                    {
+                        RemoveParticle(dynamicParticleIndex, b, i);
+                    }
+                    else
+                    {
+                        matrices[dynamicParticleIndex][b][i].SetColumn(3, column);
+                    }
+                }
+            }
+        }
+    }
+
+    public void SuckRect(Vector2 center, float width, float height)
+	{
+
+	}
 }
