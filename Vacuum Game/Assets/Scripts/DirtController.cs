@@ -7,17 +7,23 @@ public class DirtController : MonoBehaviour
     public static DirtController instance;
     public const float pixelSize = 0.2f;
     private const int batchSize = 1000;
-    [SerializeField] int numParticles;
-    [SerializeField] float suckSpeed;
-    [SerializeField] float suckDistance;
-    [SerializeField] float destroyDistance;
+    [SerializeField] int numStartingParticles;
+    [SerializeField] Vector2 startingParticleArea;
+    [SerializeField] float mouseSuckSpeed;
+    [SerializeField] float mouseSuckDistance;
+    [SerializeField] float mouseDestroyDistance;
 
     // Material to use for drawing the meshes.
     public Material[] materials;
 
     private List<Matrix4x4[]>[] matrices;
     private int[] offsets;
+
     private int dynamicParticleIndex = 0;
+    private const float dynamicZDepth = -0.1f;
+
+    private Vector2 lastMousePos = Vector2.zero;
+    private Vector2 lastLastMousePos = Vector2.zero;
 
     private Mesh mesh;
 
@@ -88,9 +94,9 @@ public class DirtController : MonoBehaviour
     private void Start()
     {
         Setup();
-        for (int i = 0; i < numParticles; i++)
+        for (int i = 0; i < numStartingParticles; i++)
 		{
-            AddParticle(new Vector2(Random.Range(-10f, 10f), Random.Range(-10f, 10f)));
+            AddParticle(new Vector2(Random.Range(-startingParticleArea.x / 2, startingParticleArea.x / 2), Random.Range(-startingParticleArea.y / 2, startingParticleArea.y / 2)));
 		}
     }
 
@@ -115,12 +121,14 @@ public class DirtController : MonoBehaviour
 
     }
 
+    // adds a particle of a random material
     public int AddParticle(Vector2 pos)
     {
         int c = Random.Range(0, matrices.Length);
         return AddParticle(pos, c);
     }
 
+    // adds a particle of a specific material
     public int AddParticle(Vector2 pos, int c)
     {
         List<Matrix4x4[]> l = matrices[c];
@@ -131,7 +139,6 @@ public class DirtController : MonoBehaviour
 
         // Build matrix.
         Vector3 position = pos;
-        position.z = Random.Range(-1f, -0.5f);
         Quaternion rotation = Quaternion.identity;
         Vector3 scale = Vector3.one;
 
@@ -142,7 +149,7 @@ public class DirtController : MonoBehaviour
         return c;
     }
 
-    public void RemoveParticle(int c, int b, int i)
+    private void RemoveParticle(int c, int b, int i)
 	{
         List<Matrix4x4[]> colorMatrix = matrices[c];
         
@@ -151,27 +158,31 @@ public class DirtController : MonoBehaviour
         int batchIndex = Mathf.FloorToInt(offsets[c] / batchSize);
 
         Matrix4x4 lastParticle = colorMatrix[batchIndex][offsetInLastMatrix];
-        
 
-        
         colorMatrix[b][i] = lastParticle;
         offsets[c]--;
         if (offsetInLastMatrix == 0 && colorMatrix.Count > 1)
 		{
             colorMatrix.RemoveAt(colorMatrix.Count - 1);
 		}
+        
     }
 
     private void Update()
     {
-
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (Input.GetKey(KeyCode.Mouse0))
 		{
-            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            //SuckCircle(mousePos, suckDistance);
-            SuckSlice(mousePos, Vector2.right * suckDistance, 90);
+            // An example of how to use SuckSlice
+            SuckSlice(mousePos, (lastMousePos - lastLastMousePos).normalized * mouseSuckDistance, 90, mouseSuckSpeed, mouseDestroyDistance);
         }
 
+        if (lastMousePos != mousePos)
+		{
+            lastLastMousePos = lastMousePos;
+            lastMousePos = mousePos;
+		}
+        
 
         dynamicParticleIndex++;
         if (dynamicParticleIndex >= materials.Length)
@@ -179,11 +190,31 @@ public class DirtController : MonoBehaviour
             dynamicParticleIndex = 0;
 		}
 
+        string s = "offsets: ";
+        for (int i = 0; i < materials.Length; i++)
+		{
+            s += offsets[i] + ", ";
+		}
+        Debug.Log(s);
+
         Draw();
     }
-    
-    public void SuckCircle(Vector2 center, float radius)
+
+    /// <summary>
+    /// Sucks a bunch of dirt particles contained within a section of a circle towards the center
+    /// </summary>
+    /// <param name="center">The center of the circle</param>
+    /// <param name="direction">The direction of the slice from the center of the circle. The magnitude determines the radius of the circle</param>
+    /// <param name="degrees">The number of degrees the slice of the circle will cover</param>
+    /// <param name="suckSpeed">Affects how fast the particals will move towards the center of the circle</param>
+    /// <param name="destroyDistance">How close a particle has to be to the center of the circle to be destroyed</param>
+    public void SuckSlice(Vector2 center, Vector2 direction, float degrees, float suckSpeed, float destroyDistance)
 	{
+        float radius = direction.magnitude;
+
+        Stack<Vector2> garbage = new Stack<Vector2>();
+
+
         Matrix4x4 matrix;
         float distance;
         Vector4 column;
@@ -201,64 +232,38 @@ public class DirtController : MonoBehaviour
                 matrix = matrices[dynamicParticleIndex][b][i];
                 column = matrix.GetColumn(3);
                 distance = Vector2.Distance(column, center);
-                if (distance < radius)
+
+
+                if (distance < radius && (Vector2.Angle((Vector2)column - center, direction) < degrees / 2 || column.z == dynamicZDepth))
                 {
                     distance /= radius;
                     distance = Mathf.Pow(distance, 2);
                     Vector2 newPos = Vector2.MoveTowards(column, center, (1 - distance) * Time.deltaTime * suckSpeed);
                     column.x = newPos.x;
                     column.y = newPos.y;
+                    column.z = dynamicZDepth;
                     if (Vector2.Distance(column, center) < destroyDistance)
                     {
-                        RemoveParticle(dynamicParticleIndex, b, i);
+                        garbage.Push(new Vector2(b, i));
                     }
                     else
-                    {
+					{
                         matrices[dynamicParticleIndex][b][i].SetColumn(3, column);
                     }
+                }
+                else if (column.z == dynamicZDepth)
+                {
+                    column.z = 0;
+                    matrices[dynamicParticleIndex][b][i].SetColumn(3, column);
                 }
             }
         }
-    }
 
-    // The magnitude of the direction vector determines the radius of the slice
-    public void SuckSlice(Vector2 center, Vector2 direction, float degrees)
-	{
-        float radius = direction.magnitude;
-        Matrix4x4 matrix;
-        float distance;
-        Vector4 column;
-        for (int b = 0; b < matrices[dynamicParticleIndex].Count; b++)
-        {
-            int particlesInBatch = batchSize;
-            if (b == matrices[dynamicParticleIndex].Count - 1)
-            {
-                particlesInBatch = offsets[dynamicParticleIndex] % batchSize + 1;
-            }
-
-            for (int i = 0; i < particlesInBatch; i++)
-            {
-                // runs for each particle of a certain color, with the color alternating each frame
-                matrix = matrices[dynamicParticleIndex][b][i];
-                column = matrix.GetColumn(3);
-                distance = Vector2.Distance(column, center);
-                if (distance < radius && Vector2.Angle((Vector2)column - center, direction) < degrees / 2)
-                {
-                    distance /= radius;
-                    distance = Mathf.Pow(distance, 2);
-                    Vector2 newPos = Vector2.MoveTowards(column, center, (1 - distance) * Time.deltaTime * suckSpeed);
-                    column.x = newPos.x;
-                    column.y = newPos.y;
-                    if (Vector2.Distance(column, center) < destroyDistance)
-                    {
-                        RemoveParticle(dynamicParticleIndex, b, i);
-                    }
-                    else
-                    {
-                        matrices[dynamicParticleIndex][b][i].SetColumn(3, column);
-                    }
-                }
-            }
+        Vector2 g;
+        while (garbage.Count > 0)
+		{
+            g = garbage.Pop();
+            RemoveParticle(dynamicParticleIndex, (int)g.x, (int)g.y);
         }
     }
 }
