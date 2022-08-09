@@ -208,7 +208,8 @@ public class DirtController : MonoBehaviour
     /// <param name="degrees">The number of degrees the slice of the circle will cover</param>
     /// <param name="suckSpeed">Affects how fast the particals will move towards the center of the circle</param>
     /// <param name="destroyDistance">How close a particle has to be to the center of the circle to be destroyed</param>
-    public void SuckSlice(Vector2 center, Vector2 direction, float degrees, float suckSpeed, float destroyDistance)
+    /// <returns>Number of particles destroyed by the suck</returns>
+    public int SuckSlice(Vector2 center, Vector2 direction, float degrees, float suckSpeed, float destroyDistance)
 	{
         float radius = direction.magnitude;
 
@@ -260,10 +261,13 @@ public class DirtController : MonoBehaviour
         }
 
         Vector2 g;
+        int d = 0;
         while (garbage.Count > 0)
 		{
             g = garbage.Pop();
             RemoveParticle(dynamicParticleIndex, (int)g.x, (int)g.y);
+            d++;
         }
+        return d;
     }
 }
