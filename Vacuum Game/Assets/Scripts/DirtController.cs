@@ -168,7 +168,8 @@ public class DirtController : MonoBehaviour
         if (Input.GetKey(KeyCode.Mouse0))
 		{
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            SuckCircle(mousePos, suckDistance);
+            //SuckCircle(mousePos, suckDistance);
+            SuckSlice(mousePos, Vector2.right * suckDistance, 90);
         }
 
 
@@ -220,8 +221,44 @@ public class DirtController : MonoBehaviour
         }
     }
 
-    public void SuckRect(Vector2 center, float width, float height)
+    // The magnitude of the direction vector determines the radius of the slice
+    public void SuckSlice(Vector2 center, Vector2 direction, float degrees)
 	{
+        float radius = direction.magnitude;
+        Matrix4x4 matrix;
+        float distance;
+        Vector4 column;
+        for (int b = 0; b < matrices[dynamicParticleIndex].Count; b++)
+        {
+            int particlesInBatch = batchSize;
+            if (b == matrices[dynamicParticleIndex].Count - 1)
+            {
+                particlesInBatch = offsets[dynamicParticleIndex] % batchSize + 1;
+            }
 
-	}
+            for (int i = 0; i < particlesInBatch; i++)
+            {
+                // runs for each particle of a certain color, with the color alternating each frame
+                matrix = matrices[dynamicParticleIndex][b][i];
+                column = matrix.GetColumn(3);
+                distance = Vector2.Distance(column, center);
+                if (distance < radius && Vector2.Angle((Vector2)column - center, direction) < degrees / 2)
+                {
+                    distance /= radius;
+                    distance = Mathf.Pow(distance, 2);
+                    Vector2 newPos = Vector2.MoveTowards(column, center, (1 - distance) * Time.deltaTime * suckSpeed);
+                    column.x = newPos.x;
+                    column.y = newPos.y;
+                    if (Vector2.Distance(column, center) < destroyDistance)
+                    {
+                        RemoveParticle(dynamicParticleIndex, b, i);
+                    }
+                    else
+                    {
+                        matrices[dynamicParticleIndex][b][i].SetColumn(3, column);
+                    }
+                }
+            }
+        }
+    }
 }
