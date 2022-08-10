@@ -6,24 +6,24 @@ public class DirtController : MonoBehaviour
 {
     public static DirtController instance;
     public const float pixelSize = 0.2f;
-    private const int batchSize = 1000;
-    [SerializeField] int numStartingParticles;
+    private const int batchSize = 256;
+    public int numStartingParticles;
+    public int maxParticles;
     [SerializeField] Vector2 startingParticleArea;
     [SerializeField] float mouseSuckSpeed;
     [SerializeField] float mouseSuckDistance;
     [SerializeField] float mouseDestroyDistance;
+
+    private Transform[] floorboards;
 
     // Material to use for drawing the meshes.
     public Material[] materials;
 
     private List<Matrix4x4[]>[] matrices;
     private int[] offsets;
-
+    public int particleCount { get; private set; }
     private int dynamicParticleIndex = 0;
     private const float dynamicZDepth = -0.1f;
-
-    private Vector2 lastMousePos = Vector2.zero;
-    private Vector2 lastLastMousePos = Vector2.zero;
 
     private Mesh mesh;
 
@@ -37,12 +37,23 @@ public class DirtController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
+        List<Transform> l = new List<Transform>();
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).gameObject.tag == "Floorboard")
+            {
+                l.Add(transform.GetChild(i));
+            }
+        }
+        floorboards = l.ToArray();
+
 
 
         mesh = CreateQuad();
 
         matrices = new List<Matrix4x4[]>[materials.Length];
-        for (int c = 0; c < matrices.Length; c++)
+        for (int c = 0; c < materials.Length; c++)
         {
             matrices[c] = new List<Matrix4x4[]>();
             matrices[c].Add(new Matrix4x4[batchSize]);
@@ -94,11 +105,49 @@ public class DirtController : MonoBehaviour
     private void Start()
     {
         Setup();
-        for (int i = 0; i < numStartingParticles; i++)
-		{
-            AddParticle(new Vector2(Random.Range(-startingParticleArea.x / 2, startingParticleArea.x / 2), Random.Range(-startingParticleArea.y / 2, startingParticleArea.y / 2)));
-		}
+        AddStartingParticles();
     }
+
+    private void AddStartingParticles()
+	{
+        // gets the weights of each floorboard based on total area
+		float[] floorWeights = new float[floorboards.Length];
+        float totalArea = 0;
+        for (int i = 0; i < floorWeights.Length; i++)
+		{
+            floorWeights[i] = floorboards[i].lossyScale.x * floorboards[i].lossyScale.y;
+            totalArea += floorWeights[i];
+		}
+        for (int i = 0; i < floorWeights.Length; i++)
+		{
+            floorWeights[i] /= totalArea;
+            Debug.Log(floorWeights[i]);
+		}
+
+        for (int i = 0; i < numStartingParticles; i++)
+        {
+            int c = Random.Range(0, materials.Length - 1);
+            Transform floorboard = floorboards[WeightedRandom(floorWeights)];
+            float particleX = Random.Range(-floorboard.lossyScale.x / 2, floorboard.lossyScale.x / 2);
+            float particleY = Random.Range(-floorboard.lossyScale.y / 2, floorboard.lossyScale.y / 2);
+            AddParticle((Vector2)floorboard.position + new Vector2(particleX, particleY), c);
+        }
+    }
+
+    private int WeightedRandom(float[] weights)
+	{
+        float r = Random.Range(0, 1f);
+        float sum = 0;
+        for (int i = 0; i < weights.Length; i++)
+		{
+            sum += weights[i];
+            if (r < sum)
+			{
+                return i;
+			}
+		}
+        return weights.Length - 1;
+	}
 
     private void Draw()
     {
@@ -122,17 +171,22 @@ public class DirtController : MonoBehaviour
     }
 
     // adds a particle of a random material
-    public int AddParticle(Vector2 pos)
+    public bool AddParticle(Vector2 pos)
     {
         int c = Random.Range(0, matrices.Length);
         return AddParticle(pos, c);
     }
 
     // adds a particle of a specific material
-    public int AddParticle(Vector2 pos, int c)
+    public bool AddParticle(Vector2 pos, int c)
     {
+        if (offsets[c] >= maxParticles / materials.Length)
+		{
+            return false;
+		}
+
         List<Matrix4x4[]> l = matrices[c];
-        if (offsets[c] > 0 && offsets[c] % batchSize == 0)
+        if ((offsets[c] + 1) > 0 && (offsets[c] + 1) % batchSize == 0)
         {
             l.Add(new Matrix4x4[batchSize]);
         }
@@ -143,10 +197,11 @@ public class DirtController : MonoBehaviour
         Vector3 scale = Vector3.one;
 
         offsets[c]++;
+        particleCount++;
         l[l.Count - 1][offsets[c] % batchSize] = Matrix4x4.TRS(position, rotation, scale);
-        
 
-        return c;
+        
+        return true;
     }
 
     private void RemoveParticle(int c, int b, int i)
@@ -161,27 +216,23 @@ public class DirtController : MonoBehaviour
 
         colorMatrix[b][i] = lastParticle;
         offsets[c]--;
+        particleCount--;
         if (offsetInLastMatrix == 0 && colorMatrix.Count > 1)
 		{
             colorMatrix.RemoveAt(colorMatrix.Count - 1);
+            
 		}
-        
     }
 
     private void Update()
     {
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        
         if (Input.GetKey(KeyCode.Mouse0))
-		{
+        {
             // An example of how to use SuckSlice
-            SuckSlice(mousePos, (lastMousePos - lastLastMousePos).normalized * mouseSuckDistance, 90, mouseSuckSpeed, mouseDestroyDistance);
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            SuckSlice(mousePos, Vector2.up * mouseSuckDistance, 360, mouseSuckSpeed, mouseDestroyDistance);
         }
-
-        if (lastMousePos != mousePos)
-		{
-            lastLastMousePos = lastMousePos;
-            lastMousePos = mousePos;
-		}
         
 
         dynamicParticleIndex++;
@@ -189,13 +240,22 @@ public class DirtController : MonoBehaviour
 		{
             dynamicParticleIndex = 0;
 		}
-
+        
+        /*
         string s = "offsets: ";
         for (int i = 0; i < materials.Length; i++)
 		{
             s += offsets[i] + ", ";
 		}
         Debug.Log(s);
+
+        s = "batches: ";
+        for (int i = 0; i < materials.Length; i++)
+        {
+            s += matrices[i].Count + ", ";
+        }
+        Debug.Log(s);
+        */
 
         Draw();
     }
@@ -269,5 +329,85 @@ public class DirtController : MonoBehaviour
             d++;
         }
         return d;
+    }
+
+    public Vector2 PollRandomSpawnLocation()
+	{
+        if (particleCount == 0)
+        {
+            return Vector2.zero;
+        }
+
+        // selects a uniformly random particle
+        int particleIndex = Random.Range(0, particleCount);
+
+
+        Vector3 particlePosition = GetParticlePositionFromIndex(particleIndex);
+
+        int c = (int)particlePosition.x;
+        int b = (int)particlePosition.y;
+        int i = (int)particlePosition.z;
+
+        //Debug.Log("particle index: " + particleIndex + " c: " + c + " b: " + b + " i: " + i);
+        // finally we can find the particle
+        Matrix4x4 particle = matrices[c][b][i];
+        Vector4 column = particle.GetColumn(3);
+
+        RaycastHit2D hit = Physics2D.Raycast(column, Vector2.zero, LayerMask.GetMask("Furniture"));
+        
+        float duration = 1f;
+        if (hit.collider == null)
+		{
+            Debug.DrawRay(column, Vector2.up, Color.red, duration);
+            Debug.DrawRay(column, (Vector2.up + Vector2.left).normalized * 0.2f, Color.red, duration);
+            Debug.DrawRay(column, (Vector2.up + Vector2.right).normalized * 0.2f, Color.red, duration);
+        }
+        else
+		{
+            Debug.DrawRay(column, Vector2.up, Color.green, duration);
+            Debug.DrawRay(column, (Vector2.up + Vector2.left).normalized * 0.2f, Color.green, duration);
+            Debug.DrawRay(column, (Vector2.up + Vector2.right).normalized * 0.2f, Color.green, duration);
+        }
+        
+
+        if (hit.collider != null)
+        {
+            return column;
+        }
+        else
+        {
+            return Vector2.zero;
+        }
+	}
+
+    private Vector3 GetParticlePositionFromIndex(int index)
+	{
+        // gets the color of the particle
+        int c = 0;
+        while (true)
+        {
+            if (c == materials.Length)
+			{
+                Debug.LogError("no particle found");
+                return new Vector3(-1, -1, -1);
+			}
+            index -= offsets[c] + 1;
+            if (index < 0)
+            {
+                break;
+            }
+            c++;
+        }
+
+        // gets the index of the particle in the color
+        index += offsets[c] + 1;
+
+        // gets the batch of the particle
+        int b = index / batchSize;
+
+        // gets the index of the particle in the batch
+        int i = index - b * batchSize;
+
+        return new Vector3(c, b, i);
     }
 }
