@@ -174,7 +174,7 @@ public class DirtController : MonoBehaviour
         if (Input.GetKey(KeyCode.Mouse0))
 		{
             // An example of how to use SuckSlice
-            SuckSlice(mousePos, (lastMousePos - lastLastMousePos).normalized * mouseSuckDistance, 90, mouseSuckSpeed, mouseDestroyDistance);
+            //SuckSlice(mousePos, (lastMousePos - lastLastMousePos).normalized * mouseSuckDistance, 90, mouseSuckSpeed, mouseDestroyDistance);
         }
 
         if (lastMousePos != mousePos)

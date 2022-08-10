@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestWeapon : IWeapon
+public class TestWeapon : MonoBehaviour, IWeapon
 {
     bool isFiring = false;
     // Start is called before the first frame update
@@ -25,5 +25,29 @@ public class TestWeapon : IWeapon
     public void AttackUp(){
         isFiring = false;
         Debug.Log("Stopped Firing!");
+    }
+
+    public void AltAttackDown(){
+        isFiring = true;
+        Debug.Log("Started Alt Firing!");
+    }
+
+    public void AltAttackUp(){
+        isFiring = false;
+        Debug.Log("Stopped Alt Firing!");
+    }
+
+    public float GetSlowPlayerMult(){
+        return 1f;
+    }
+
+    public bool IsAttacking(){
+        return isFiring;
+    }
+    public void Activate(){
+        gameObject.SetActive(true);
+    }
+    public void Deactivate(){
+        gameObject.SetActive(false);
     }
 }
