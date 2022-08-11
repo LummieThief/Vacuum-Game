@@ -186,6 +186,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floorboard (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4943693467867864942, guid: 30b24c1d76f3af2419cb9ea133992de0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30b24c1d76f3af2419cb9ea133992de0, type: 3}
 --- !u!4 &187841190 stripped
@@ -210,7 +214,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5088967214763045698, guid: efa60f8ab35085b4da69c0d44c9c7034, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 5088967214763045698, guid: efa60f8ab35085b4da69c0d44c9c7034, type: 3}
       propertyPath: m_LocalPosition.z
@@ -891,7 +895,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5088967214763045698, guid: efa60f8ab35085b4da69c0d44c9c7034, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 5088967214763045698, guid: efa60f8ab35085b4da69c0d44c9c7034, type: 3}
       propertyPath: m_LocalPosition.z
@@ -993,6 +997,10 @@ PrefabInstance:
     - target: {fileID: 4943693467867864942, guid: 30b24c1d76f3af2419cb9ea133992de0, type: 3}
       propertyPath: m_Name
       value: Floorboard (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4943693467867864942, guid: 30b24c1d76f3af2419cb9ea133992de0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30b24c1d76f3af2419cb9ea133992de0, type: 3}
@@ -1572,8 +1580,8 @@ MonoBehaviour:
   numStartingParticles: 10000
   maxParticles: 15000
   startingParticleArea: {x: 20, y: 20}
-  mouseSuckSpeed: 500
-  mouseSuckDistance: 3
+  mouseSuckSpeed: 15
+  mouseSuckDistance: 1
   mouseDestroyDistance: 0.1
   materials:
   - {fileID: 2100000, guid: 5cd5afa1f28aacd4ab75fb0040071f13, type: 2}
@@ -1641,7 +1649,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 988546316422953510, guid: a7ef62e3f1335104c8c53b9ab3629f44, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 988546316422953510, guid: a7ef62e3f1335104c8c53b9ab3629f44, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1744,6 +1752,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floorboard
       objectReference: {fileID: 0}
+    - target: {fileID: 4943693467867864942, guid: 30b24c1d76f3af2419cb9ea133992de0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30b24c1d76f3af2419cb9ea133992de0, type: 3}
 --- !u!1001 &5088967214539222066
@@ -1763,7 +1775,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5088967214763045698, guid: efa60f8ab35085b4da69c0d44c9c7034, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 5088967214763045698, guid: efa60f8ab35085b4da69c0d44c9c7034, type: 3}
       propertyPath: m_LocalPosition.z
