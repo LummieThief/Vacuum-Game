@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e1d557937e25c940b7e9e0b4c77c33b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpCooldown: 0.5
+  jumpCooldown: 1
   jumpDistance: 2
   jumpSpeed: 10
   numDustParticles: 10

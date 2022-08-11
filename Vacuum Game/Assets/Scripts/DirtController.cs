@@ -41,7 +41,7 @@ public class DirtController : MonoBehaviour
         List<Transform> l = new List<Transform>();
         for (int i = 0; i < transform.childCount; i++)
         {
-            if (transform.GetChild(i).gameObject.tag == "Floorboard")
+            if (transform.GetChild(i).gameObject.tag == "Floorboard" && transform.GetChild(i).gameObject.activeSelf)
             {
                 l.Add(transform.GetChild(i));
             }
@@ -231,7 +231,8 @@ public class DirtController : MonoBehaviour
         {
             // An example of how to use SuckSlice
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            SuckSlice(mousePos, Vector2.up * mouseSuckDistance, 360, mouseSuckSpeed, mouseDestroyDistance);
+            //SuckSlice(mousePos, Vector2.up * mouseSuckDistance, 360, mouseSuckSpeed, mouseDestroyDistance);
+            SweepLine(mousePos, (Vector2.up).normalized, mouseSuckDistance);
 
         }
         
@@ -330,6 +331,58 @@ public class DirtController : MonoBehaviour
             d++;
         }
         return d;
+    }
+
+    public void SweepLine(Vector2 center, Vector2 direction, float lineWidth)
+	{
+ 
+        const float inverseCurvature = 50;
+        Matrix4x4 matrix;
+        float orbitDistance = 0;
+        float originDistance = 0;
+        Vector4 column;
+        Vector2 origin = center - direction.normalized * inverseCurvature;
+        Vector2 orbit = center + direction / 2;
+        for (int b = 0; b < matrices[dynamicParticleIndex].Count; b++)
+        {
+            int particlesInBatch = batchSize;
+            if (b == matrices[dynamicParticleIndex].Count - 1)
+            {
+                particlesInBatch = offsets[dynamicParticleIndex] % batchSize + 1;
+            }
+
+            for (int i = 0; i < particlesInBatch; i++)
+            {
+                // runs for each particle of a certain color, with the color alternating each frame
+                matrix = matrices[dynamicParticleIndex][b][i];
+                column = matrix.GetColumn(3);
+                orbitDistance = Vector2.Distance(column, orbit);
+
+                bool inRect = false;
+                if (orbitDistance < lineWidth)
+                {
+                    originDistance = Vector2.Distance(column, origin);
+                    if (originDistance > inverseCurvature && originDistance < inverseCurvature + direction.magnitude)
+					{
+                        inRect = true;
+					}
+                }
+
+                if (inRect)
+				{
+                    Vector2 newPos = Vector2.MoveTowards(column, origin, originDistance - inverseCurvature);
+                    column.x = newPos.x;
+                    column.y = newPos.y;
+                    //column.z = dynamicZDepth;
+                    matrices[dynamicParticleIndex][b][i].SetColumn(3, column);
+                }
+                else if (column.z == dynamicZDepth)
+                {
+                    column.z = 0;
+                    matrices[dynamicParticleIndex][b][i].SetColumn(3, column);
+                }
+            }
+        }
     }
 
     public Vector2 PollRandomSpawnLocation()
