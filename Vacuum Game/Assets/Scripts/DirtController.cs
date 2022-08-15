@@ -121,7 +121,6 @@ public class DirtController : MonoBehaviour
         for (int i = 0; i < floorWeights.Length; i++)
 		{
             floorWeights[i] /= totalArea;
-            Debug.Log(floorWeights[i]);
 		}
 
         for (int i = 0; i < numStartingParticles; i++)

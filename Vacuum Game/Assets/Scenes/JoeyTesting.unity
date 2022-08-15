@@ -254,7 +254,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5088967214763045724, guid: efa60f8ab35085b4da69c0d44c9c7034, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efa60f8ab35085b4da69c0d44c9c7034, type: 3}
@@ -1037,7 +1037,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5088967214763045724, guid: efa60f8ab35085b4da69c0d44c9c7034, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efa60f8ab35085b4da69c0d44c9c7034, type: 3}
@@ -1901,10 +1901,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rat
       objectReference: {fileID: 0}
-    - target: {fileID: 988546316422953528, guid: a7ef62e3f1335104c8c53b9ab3629f44, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7ef62e3f1335104c8c53b9ab3629f44, type: 3}
 --- !u!1001 &4943693468123604131
@@ -2026,10 +2022,6 @@ PrefabInstance:
     - target: {fileID: 5088967214763045724, guid: efa60f8ab35085b4da69c0d44c9c7034, type: 3}
       propertyPath: m_Name
       value: Dust Bunny
-      objectReference: {fileID: 0}
-    - target: {fileID: 5088967214763045724, guid: efa60f8ab35085b4da69c0d44c9c7034, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efa60f8ab35085b4da69c0d44c9c7034, type: 3}

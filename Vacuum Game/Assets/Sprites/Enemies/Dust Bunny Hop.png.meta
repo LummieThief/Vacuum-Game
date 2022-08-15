@@ -1,25 +1,19 @@
 fileFormatVersion: 2
-guid: e3e820e3fb771cf459db521e7f6fa792
+guid: a585f5c51108ee54cace6384b0f476e0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2262884738237314864
-    second: Rat Walking Animation_0
+      213: 4701527961225044629
+    second: Dust Bunny (hop) (2)_1
   - first:
-      213: 4514222993013103120
-    second: Rat Walking Animation_1
+      213: -4207618312190122213
+    second: Dust Bunny (hop) (2)_2
   - first:
-      213: -3847035893793459172
-    second: Rat Walking Animation_2
+      213: -3832757312066022244
+    second: Dust Bunny (hop) (2)_3
   - first:
-      213: -339226049629746320
-    second: Rat Walking Animation_3
-  - first:
-      213: 7736828233475058966
-    second: Rat Walking Animation_4
-  - first:
-      213: -6215277018076208868
-    second: Rat Walking Animation_5
+      213: -1107874500723961383
+    second: Dust Bunny (hop) (2)_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -133,13 +127,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Rat Walking Animation_0
+      name: Dust Bunny (hop) (2)_0
       rect:
         serializedVersion: 2
-        x: 41
-        y: 318
-        width: 36
-        height: 36
+        x: 43
+        y: 312
+        width: 34
+        height: 34
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,20 +141,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 037b94e1ea1676f10800000000000000
-      internalID: 2262884738237314864
+      spriteID: 832315bc4f6a513e0800000000000000
+      internalID: -2083575682275659208
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rat Walking Animation_1
+      name: Dust Bunny (hop) (2)_1
       rect:
         serializedVersion: 2
-        x: 169
-        y: 318
-        width: 36
-        height: 36
+        x: 171
+        y: 312
+        width: 34
+        height: 34
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -168,20 +162,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 01a527f05edb5ae30800000000000000
-      internalID: 4514222993013103120
+      spriteID: 592a26e55ce2f3140800000000000000
+      internalID: 4701527961225044629
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rat Walking Animation_2
+      name: Dust Bunny (hop) (2)_2
       rect:
         serializedVersion: 2
-        x: 41
-        y: 190
-        width: 36
-        height: 36
+        x: 43
+        y: 180
+        width: 34
+        height: 34
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -189,20 +183,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c147340bc359c9ac0800000000000000
-      internalID: -3847035893793459172
+      spriteID: b17aa7f10798b95c0800000000000000
+      internalID: -4207618312190122213
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rat Walking Animation_3
+      name: Dust Bunny (hop) (2)_3
       rect:
         serializedVersion: 2
-        x: 169
-        y: 190
-        width: 36
-        height: 36
+        x: 171
+        y: 180
+        width: 34
+        height: 34
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -210,20 +204,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 07b824584b3da4bf0800000000000000
-      internalID: -339226049629746320
+      spriteID: c941600188f4fcac0800000000000000
+      internalID: -3832757312066022244
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rat Walking Animation_4
+      name: Dust Bunny (hop) (2)_4
       rect:
         serializedVersion: 2
-        x: 41
-        y: 62
-        width: 36
-        height: 36
+        x: 43
+        y: 56
+        width: 34
+        height: 34
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -231,29 +225,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 61d6e70794cbe5b60800000000000000
-      internalID: 7736828233475058966
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Rat Walking Animation_5
-      rect:
-        serializedVersion: 2
-        x: 169
-        y: 62
-        width: 36
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c112be46b76eeb9a0800000000000000
-      internalID: -6215277018076208868
+      spriteID: 9d192a8e20a00a0f0800000000000000
+      internalID: -1107874500723961383
       vertices: []
       indices: 
       edges: []

@@ -8,6 +8,8 @@ public class DustBunnyAI : MonoBehaviour
     private float jumpCooldownTimer;
     [SerializeField] float jumpDistance;
     private float distanceJumped;
+    [SerializeField] float jumpSquat;
+    private float timeSquatted;
     [SerializeField] float jumpSpeed;
     [SerializeField] int numDustParticles;
 
@@ -16,6 +18,8 @@ public class DustBunnyAI : MonoBehaviour
     private Vector2 direction;
     private Vector2 nextDirection;
     private float radius;
+
+    [SerializeField] Animator animator;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,18 +32,27 @@ public class DustBunnyAI : MonoBehaviour
     {
         if (jumping)
 		{
-            float dist = jumpSpeed * Time.deltaTime;
-            
-            if (dist + distanceJumped > jumpDistance)
+            if (timeSquatted < jumpSquat)
 			{
-                dist = jumpDistance - distanceJumped;
-                transform.Translate(direction * dist);
-                Land();
-            }
+                timeSquatted += Time.deltaTime;
+			}
             else
 			{
-                distanceJumped += dist;
-                transform.Translate(direction * dist);
+                animator.SetBool("Airborne", true);
+                animator.ResetTrigger("Squat");
+                float dist = jumpSpeed * Time.deltaTime;
+
+                if (dist + distanceJumped > jumpDistance)
+                {
+                    dist = jumpDistance - distanceJumped;
+                    transform.Translate(direction * dist);
+                    Land();
+                }
+                else
+                {
+                    distanceJumped += dist;
+                    transform.Translate(direction * dist);
+                }
             }
         }
         else
@@ -74,6 +87,11 @@ public class DustBunnyAI : MonoBehaviour
 		}
         jumpCooldownTimer = jumpCooldown;
         jumping = true;
+        timeSquatted = 0;
+        animator.SetTrigger("Squat");
+        
+        Quaternion rot = Quaternion.LookRotation(Vector3.forward, -direction);
+        animator.transform.rotation = rot;
     }
 
     private void Land()
@@ -89,6 +107,9 @@ public class DustBunnyAI : MonoBehaviour
             int c = Random.Range(0, DirtController.instance.materials.Length - 1);
             DirtController.instance.AddParticle((Vector2)transform.position + Vector2.up * Random.Range(-r, r) + Vector2.right * Random.Range(-r, r), c);
 		}
+        animator.SetBool("Airborne", false);
+        animator.ResetTrigger("Squat");
+
     }
 
     private Vector2 RotateVector2(Vector2 v, float delta)
