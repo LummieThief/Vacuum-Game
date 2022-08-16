@@ -230,8 +230,8 @@ public class DirtController : MonoBehaviour
         {
             // An example of how to use SuckSlice
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            //SuckSlice(mousePos, Vector2.up * mouseSuckDistance, 360, mouseSuckSpeed, mouseDestroyDistance);
-            SweepLine(mousePos, (Vector2.up).normalized, mouseSuckDistance);
+            SuckSlice(mousePos, Vector2.up * mouseSuckDistance, 360, mouseSuckSpeed, mouseDestroyDistance);
+            //SweepLine(mousePos, (Vector2.up).normalized, mouseSuckDistance);
 
         }
         
