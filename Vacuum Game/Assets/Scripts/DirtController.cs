@@ -9,6 +9,7 @@ public class DirtController : MonoBehaviour
     private const int batchSize = 256;
     public int numStartingParticles;
     public int maxParticles;
+    [SerializeField] bool spawnParticlesOnAwake;
     [SerializeField] Vector2 startingParticleArea;
     [SerializeField] float mouseSuckSpeed;
     [SerializeField] float mouseSuckDistance;
@@ -105,10 +106,14 @@ public class DirtController : MonoBehaviour
     private void Start()
     {
         Setup();
-        AddStartingParticles();
+        if (spawnParticlesOnAwake)
+		{
+            AddStartingParticles();
+        }
+        
     }
 
-    private void AddStartingParticles()
+    public void AddStartingParticles()
 	{
         // gets the weights of each floorboard based on total area
 		float[] floorWeights = new float[floorboards.Length];

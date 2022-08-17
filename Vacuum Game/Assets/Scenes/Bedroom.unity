@@ -1914,6 +1914,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numStartingParticles: 8000
   maxParticles: 15000
+  spawnParticlesOnAwake: 1
   startingParticleArea: {x: 20, y: 20}
   mouseSuckSpeed: 100
   mouseSuckDistance: 1
