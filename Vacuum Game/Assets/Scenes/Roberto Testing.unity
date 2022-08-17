@@ -265,7 +265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponPrefabs:
-  - {fileID: 2448020463484148761, guid: f7885003da82f0f409a01876e031f6ac, type: 3}
+  - {fileID: 4952420055658441575, guid: 680eb69ebb0396046a073de3c16b5210, type: 3}
   weaponHold: {fileID: 678383322}
 --- !u!1 &678383321
 GameObject:
@@ -336,6 +336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numStartingParticles: 10
+  maxParticles: 0
   startingParticleArea: {x: 5, y: 5}
   mouseSuckSpeed: 500
   mouseSuckDistance: 3

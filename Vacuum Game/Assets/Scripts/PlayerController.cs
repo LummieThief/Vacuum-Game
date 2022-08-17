@@ -14,6 +14,7 @@ public class PlayerController : LivingEntity
     Vector2 currentVelocity;
     //Vector2 mousePos;
     public FrameInput input;
+    public IInteractable interactable {get; set;}
 
     void Awake(){
         base.Awake();
@@ -70,6 +71,10 @@ public class PlayerController : LivingEntity
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
         transform.eulerAngles = new Vector3(0, 0, angle);
         //weaponsRotator.eulerAngles = new Vector3(0, 0, angle);
+    }
+
+    private void Interact(){
+        interactable?.Interact(this);
     }
 
     public struct FrameInput {

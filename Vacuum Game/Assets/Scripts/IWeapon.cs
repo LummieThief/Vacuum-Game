@@ -12,4 +12,5 @@ public interface IWeapon
     public bool IsAttacking();
     public void Activate();
     public void Deactivate();
+    //public void OnSpawn(WeaponsManager weaponsManager);
 }
