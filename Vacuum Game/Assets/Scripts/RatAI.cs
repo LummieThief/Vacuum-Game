@@ -13,6 +13,8 @@ public class RatAI : MonoBehaviour
     private bool scurrying;
     private Vector2 direction;
     private float radius;
+
+    [SerializeField] Animator animator;
     // Start is called before the first frame update
     void Start()
     {
@@ -76,11 +78,16 @@ public class RatAI : MonoBehaviour
         direction = angle;
         scurryPoint = transform.position + (Vector3)(direction * range);
         scurrying = true;
+
+        Quaternion rot = Quaternion.LookRotation(Vector3.forward, -direction);
+        animator.transform.rotation = rot;
+        animator.SetBool("Running", true);
     }
 
     private void Stop()
     {
         scurrying = false;
+        animator.SetBool("Running", false);
     }
 
     private Vector2 RotateVector2(Vector2 v, float delta)
