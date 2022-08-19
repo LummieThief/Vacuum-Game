@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DustBunnyAI : MonoBehaviour
+public class DustBunnyAI : LivingEntity
 {
     [SerializeField] float jumpCooldown;
     private float jumpCooldownTimer;

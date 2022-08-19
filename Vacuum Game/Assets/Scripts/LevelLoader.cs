@@ -9,7 +9,7 @@ public class LevelLoader : MonoBehaviour
     int previousScene = 0;
     int currentScene = 0;
     int entrance = 0;
-    List<RoomManager> rooms;
+    //List<RoomManager> rooms;
     Dictionary<int, bool> roomCleanedDict;
 
     void Awake(){
