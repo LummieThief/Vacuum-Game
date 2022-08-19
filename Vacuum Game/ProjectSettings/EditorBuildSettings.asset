@@ -5,13 +5,28 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: d1c3109bdb54ad54c8a2b2838528e640
+  - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: e5500e2e476d5864599ce1241d5c2b5f
   - enabled: 1
     path: Assets/Scenes/Roberto Testing.unity
     guid: 0031d1e5e08855e4284381ea872aec60
   - enabled: 1
     path: Assets/Scenes/Roberto Testing 1.unity
     guid: fb19c65eeefce5b458b2d06f1c485c19
+  - enabled: 1
+    path: Assets/Scenes/Main Hall.unity
+    guid: 35f08352592b4a14b928bda73935f6de
+  - enabled: 1
+    path: Assets/Scenes/Bathroom.unity
+    guid: a88d43200437e4a45b83eec60df17d08
+  - enabled: 1
+    path: Assets/Scenes/Living Room.unity
+    guid: f00400f5edea61c459c83b9889d0d5b2
+  - enabled: 1
+    path: Assets/Scenes/Game Room.unity
+    guid: dca49270692b8e14e8620222b0cf0cd5
+  - enabled: 1
+    path: Assets/Scenes/Bedroom.unity
+    guid: a441c18b1ec974940b66b6d2da93f343
   m_configObjects: {}

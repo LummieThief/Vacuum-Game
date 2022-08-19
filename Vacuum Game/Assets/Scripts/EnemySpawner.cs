@@ -9,10 +9,19 @@ public class EnemySpawner : MonoBehaviour
 	[SerializeField] DirtController dirtController;
 	[SerializeField] float spawnRate;
 	[SerializeField] float ratSpawnPercentage;
+	[SerializeField] int spawnCap;
+	[HideInInspector] public int numEnemies;
+
+	public static EnemySpawner instance;
 	private int numParticlesForMaximumSpawnRate;
 
 	private void Awake()
 	{
+		if (instance != null) 
+		{
+			Destroy(this);
+		}
+		instance = this;
 		numParticlesForMaximumSpawnRate = dirtController.maxParticles;
 	}
 
@@ -23,6 +32,10 @@ public class EnemySpawner : MonoBehaviour
 
 	private void AttemptSpawn()
 	{
+		if (numEnemies >= spawnCap)
+		{
+			return;
+		}
 		float r = Random.Range(0f, 1f);
 		//throttle spawning attempts as number of particles goes down
 		if (r >= ((float)Mathf.Min(dirtController.particleCount, numParticlesForMaximumSpawnRate) / numParticlesForMaximumSpawnRate) * spawnRate * Time.deltaTime)
@@ -43,6 +56,7 @@ public class EnemySpawner : MonoBehaviour
 				g = Instantiate(dustBunnyPrefab);
 			}
 
+			numEnemies++;
 			g.transform.position = point;
 		}
 

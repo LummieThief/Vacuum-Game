@@ -120,4 +120,9 @@ public class DustBunnyAI : MonoBehaviour
             v.x * Mathf.Sin(delta) + v.y * Mathf.Cos(delta)
         );
     }
+
+    private void OnDestroy()
+    {
+        EnemySpawner.instance.numEnemies--;
+    }
 }
