@@ -24,6 +24,7 @@ public class RoomManager : MonoBehaviour
             // tell dirt controller to do normal stuff
         }
         Vector2 spawnPos = transform.position;
+        if(entrances.Length > 0) spawnPos = entrances[0].spawn.position;
         int prevScene = 0;
         int entrNum = 0;
         if(LevelLoader.instance != null){

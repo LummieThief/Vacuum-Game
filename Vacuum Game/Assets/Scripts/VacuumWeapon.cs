@@ -49,6 +49,9 @@ public class VacuumWeapon : MonoBehaviour, IWeapon
     void SuckEnemies(float radius){
         Collider2D[] cols = Physics2D.OverlapCircleAll(suckTransform.position, radius, enemyLayer);
         foreach(Collider2D col in cols){
+            if(Vector2.Angle((Vector2)suckTransform.position, (Vector2)col.transform.position) < suckAngle / 2f){
+                //add to list
+            }
             //(Vector2.Angle((Vector2)column - center, direction) < degrees / 2
         }
     }
