@@ -98,4 +98,9 @@ public class RatAI : LivingEntity
             v.x * Mathf.Sin(delta) + v.y * Mathf.Cos(delta)
         );
     }
+
+	private void OnDestroy()
+	{
+        EnemySpawner.instance.numEnemies--;
+	}
 }
