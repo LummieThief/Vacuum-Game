@@ -15,6 +15,7 @@ public class LevelLoader : MonoBehaviour
     void Awake(){
         if(instance == null){
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else{
             Destroy(gameObject);
@@ -35,7 +36,7 @@ public class LevelLoader : MonoBehaviour
     }
 
     public void LoadRoom(int newScene, int newEntrance){
-        if(newScene > 0 && newScene < SceneManager.sceneCount){
+        if(newScene >= 0 && newScene < SceneManager.sceneCountInBuildSettings){
             entrance = newEntrance;
             LoadScene(newScene);
         }

@@ -5,7 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: d1c3109bdb54ad54c8a2b2838528e640
+  - enabled: 1
+    path: Assets/Scenes/Roberto Testing.unity
+    guid: 0031d1e5e08855e4284381ea872aec60
+  - enabled: 1
+    path: Assets/Scenes/Roberto Testing 1.unity
+    guid: fb19c65eeefce5b458b2d06f1c485c19
   m_configObjects: {}

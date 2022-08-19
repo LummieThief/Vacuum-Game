@@ -2,18 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Entrance : MonoBehaviour, IInteractable
+public class Furniture : MonoBehaviour, IInteractable
 {
-    public RoomManager roomManager;
-    public Transform spawn;
-    public int sceneNum;
-    public int entranceNum;
-    void Awake(){
-        if(roomManager == null) roomManager = FindObjectOfType<RoomManager>();
-        if(spawn == null) spawn = transform;
+    // Start is called before the first frame update
+    void Start()
+    {
+        
     }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
     public void Interact(PlayerController player){
-        roomManager.ExitRoom(sceneNum, entranceNum);
+        PlayerController.instance.GrabFurniture(transform);
     }
 
     void OnTriggerEnter2D(Collider2D other){
@@ -24,7 +28,7 @@ public class Entrance : MonoBehaviour, IInteractable
 
     void OnTriggerExit2D(Collider2D other){
         if(other.tag == "Player"){
-            if(PlayerController.instance.interactable is Entrance entr && entr == this){
+            if(PlayerController.instance.interactable is Furniture furn && furn == this){
                 PlayerController.instance.interactable = null;
             }
         }

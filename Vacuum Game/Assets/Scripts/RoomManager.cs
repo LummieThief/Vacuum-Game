@@ -6,17 +6,33 @@ public class RoomManager : MonoBehaviour
 {
     bool isLoading = false;
     bool roomClean = false;
+    Entrance[] entrances;
     // Start is called before the first frame update
     void Start()
     {
         PlayerController player = FindObjectOfType<PlayerController>();
+        entrances = FindObjectsOfType<Entrance>();
         if (LevelLoader.instance.GetCurrentRoomCleaned()){
             roomClean = true;
             // tell dirt controller that the room is clean
         }
         else{
+            if(DirtController.instance != null && !DirtController.instance.hasSpawnedStartParticles){
+                DirtController.instance.AddStartingParticles();
+            }
+            
             // tell dirt controller to do normal stuff
         }
+        Vector2 spawnPos = transform.position;
+        int prevScene = LevelLoader.instance.GetPreviousScene();
+        int entrNum = LevelLoader.instance.GetEntrance();
+        foreach(Entrance entr in entrances){
+            if(entr.sceneNum == prevScene && entr.entranceNum == entrNum){
+                spawnPos = entr.spawn.position;
+                break;
+            }
+        }
+        player.SpawnPlayerAt(spawnPos);
     }
 
     // Update is called once per frame
@@ -27,6 +43,7 @@ public class RoomManager : MonoBehaviour
 
     public void ExitRoom(int newScene, int newEntrance){
         if(!isLoading){
+            PlayerController.instance?.StopPlayer();
             LevelLoader.instance.LoadRoom(newScene, newEntrance);
             isLoading = true;
         }

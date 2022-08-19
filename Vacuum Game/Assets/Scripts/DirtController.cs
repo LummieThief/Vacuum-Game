@@ -25,6 +25,7 @@ public class DirtController : MonoBehaviour
     public int particleCount { get; private set; }
     private int dynamicParticleIndex = 0;
     private const float dynamicZDepth = -0.1f;
+    public bool hasSpawnedStartParticles = false;
 
     private Mesh mesh;
 
@@ -106,7 +107,7 @@ public class DirtController : MonoBehaviour
     private void Start()
     {
         Setup();
-        if (spawnParticlesOnAwake)
+        if (spawnParticlesOnAwake && !hasSpawnedStartParticles)
 		{
             AddStartingParticles();
         }
@@ -115,6 +116,7 @@ public class DirtController : MonoBehaviour
 
     public void AddStartingParticles()
 	{
+        hasSpawnedStartParticles = true;
         // gets the weights of each floorboard based on total area
 		float[] floorWeights = new float[floorboards.Length];
         float totalArea = 0;
@@ -226,6 +228,7 @@ public class DirtController : MonoBehaviour
             colorMatrix.RemoveAt(colorMatrix.Count - 1);
             
 		}
+        if(particleCount == 0) LevelLoader.instance.UpdateRoomClean(true);
     }
 
     private void Update()
