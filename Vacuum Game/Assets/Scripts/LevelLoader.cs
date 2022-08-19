@@ -9,12 +9,13 @@ public class LevelLoader : MonoBehaviour
     int previousScene = 0;
     int currentScene = 0;
     int entrance = 0;
-    List<RoomManager> rooms;
+    //List<RoomManager> rooms;
     Dictionary<int, bool> roomCleanedDict;
 
     void Awake(){
         if(instance == null){
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else{
             Destroy(gameObject);
@@ -35,7 +36,7 @@ public class LevelLoader : MonoBehaviour
     }
 
     public void LoadRoom(int newScene, int newEntrance){
-        if(newScene > 0 && newScene < SceneManager.sceneCount){
+        if(newScene >= 0 && newScene < SceneManager.sceneCountInBuildSettings){
             entrance = newEntrance;
             LoadScene(newScene);
         }

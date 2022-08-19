@@ -6,11 +6,11 @@ public class ButtonSound : MonoBehaviour
 {
     public void PlayEnterSound()
 	{
-		Debug.Log("mouse entered");
+		//no sound effect at the moment
 	}
 
 	public void PlayPressSound()
 	{
-		Debug.Log("pressed");
+		AudioManager.instance.Play("buttonSelect");
 	}
 }

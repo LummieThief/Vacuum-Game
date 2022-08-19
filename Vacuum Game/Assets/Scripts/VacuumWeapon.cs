@@ -11,6 +11,7 @@ public class VacuumWeapon : MonoBehaviour, IWeapon
     [SerializeField] float suckSpeed;
     [SerializeField] Transform suckTransform;
     [SerializeField] LayerMask blockLayers;
+    [SerializeField] LayerMask enemyLayer;
     [SerializeField] float slowSpeed;
     [SerializeField] float slowAccel;
     [SerializeField] float releaseAccel;
@@ -42,6 +43,13 @@ public class VacuumWeapon : MonoBehaviour, IWeapon
                 currentSlowSpeed += Time.deltaTime * releaseAccel;
                 currentSlowSpeed = Mathf.Min(currentSlowSpeed, 1f);
             }
+        }
+    }
+
+    void SuckEnemies(float radius){
+        Collider2D[] cols = Physics2D.OverlapCircleAll(suckTransform.position, radius, enemyLayer);
+        foreach(Collider2D col in cols){
+            //(Vector2.Angle((Vector2)column - center, direction) < degrees / 2
         }
     }
 

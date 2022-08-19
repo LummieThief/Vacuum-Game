@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RatAI : MonoBehaviour
+public class RatAI : LivingEntity
 {
     [SerializeField] float scurryChance;
     [SerializeField] float scurryRange;
@@ -98,4 +98,9 @@ public class RatAI : MonoBehaviour
             v.x * Mathf.Sin(delta) + v.y * Mathf.Cos(delta)
         );
     }
+
+	private void OnDestroy()
+	{
+        EnemySpawner.instance.numEnemies--;
+	}
 }

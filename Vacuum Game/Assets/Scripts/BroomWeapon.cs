@@ -119,9 +119,13 @@ public class BroomWeapon : MonoBehaviour, IWeapon
         return isFiring;
     }
     public void Activate(){
+        
         gameObject.SetActive(true);
     }
     public void Deactivate(){
+        EndAttack();
+        isFiring = false;
+        if(tween != null && tween.active) tween.Complete();
         gameObject.SetActive(false);
     }
 

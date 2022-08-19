@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DustBunnyAI : MonoBehaviour
+public class DustBunnyAI : LivingEntity
 {
     [SerializeField] float jumpCooldown;
     private float jumpCooldownTimer;
@@ -119,5 +119,10 @@ public class DustBunnyAI : MonoBehaviour
             v.x * Mathf.Cos(delta) - v.y * Mathf.Sin(delta),
             v.x * Mathf.Sin(delta) + v.y * Mathf.Cos(delta)
         );
+    }
+
+    private void OnDestroy()
+    {
+        EnemySpawner.instance.numEnemies--;
     }
 }

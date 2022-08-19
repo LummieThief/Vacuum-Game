@@ -25,6 +25,14 @@ public class DirtController : MonoBehaviour
     public int particleCount { get; private set; }
     private int dynamicParticleIndex = 0;
     private const float dynamicZDepth = -0.1f;
+    public bool hasSpawnedStartParticles = false;
+
+    private float vacuumTimerInterval = 0.05f;
+    private float vacuumTimer = 0;
+    private float chunkyTimer = 0;
+    private float smoothVol;
+    private float chunkyVol;
+    private AudioSource smoothSound, chunkySound;
 
     private Mesh mesh;
 
@@ -65,6 +73,16 @@ public class DirtController : MonoBehaviour
 		{
             offsets[i] = -1;
 		}
+
+        smoothSound = AudioManager.instance.GetSource("vacuumSmooth");
+        chunkySound = AudioManager.instance.GetSource("vacuumChunky");
+        
+        smoothSound.Play();
+        chunkySound.Play();
+        smoothVol = smoothSound.volume;
+        smoothSound.volume = 0;
+        chunkyVol = chunkySound.volume;
+        chunkySound.volume = 0;
     }
 
     private Mesh CreateQuad(float width = pixelSize, float height = pixelSize)
@@ -106,7 +124,7 @@ public class DirtController : MonoBehaviour
     private void Start()
     {
         Setup();
-        if (spawnParticlesOnAwake)
+        if (spawnParticlesOnAwake && !hasSpawnedStartParticles)
 		{
             AddStartingParticles();
         }
@@ -115,6 +133,7 @@ public class DirtController : MonoBehaviour
 
     public void AddStartingParticles()
 	{
+        hasSpawnedStartParticles = true;
         // gets the weights of each floorboard based on total area
 		float[] floorWeights = new float[floorboards.Length];
         float totalArea = 0;
@@ -226,11 +245,15 @@ public class DirtController : MonoBehaviour
             colorMatrix.RemoveAt(colorMatrix.Count - 1);
             
 		}
+        if(particleCount == 0) LevelLoader.instance.UpdateRoomClean(true);
     }
 
     private void Update()
     {
+        UpdateSoundTimers();
+        if (PauseMenu.paused) return;  
         
+
         if (Input.GetKey(KeyCode.Mouse0))
         {
             // An example of how to use SuckSlice
@@ -240,30 +263,37 @@ public class DirtController : MonoBehaviour
 
         }
         
-
         dynamicParticleIndex++;
         if (dynamicParticleIndex >= materials.Length)
 		{
             dynamicParticleIndex = 0;
 		}
         
-        /*
-        string s = "offsets: ";
-        for (int i = 0; i < materials.Length; i++)
-		{
-            s += offsets[i] + ", ";
-		}
-        Debug.Log(s);
-
-        s = "batches: ";
-        for (int i = 0; i < materials.Length; i++)
-        {
-            s += matrices[i].Count + ", ";
-        }
-        Debug.Log(s);
-        */
-
         Draw();
+    }
+
+    private void UpdateSoundTimers()
+	{
+        if (chunkyTimer > 0)
+        {
+            chunkyTimer -= Time.deltaTime;
+            if (chunkyTimer <= 0)
+            {
+                chunkySound.volume = 0;
+                if (vacuumTimer > 0)
+                {
+                    smoothSound.volume = smoothVol;
+                }
+            }
+        }
+        if (vacuumTimer > 0)
+        {
+            vacuumTimer -= Time.deltaTime;
+            if (vacuumTimer <= 0)
+            {
+                smoothSound.volume = 0;
+            }
+        }
     }
 
     /// <summary>
@@ -333,6 +363,20 @@ public class DirtController : MonoBehaviour
             g = garbage.Pop();
             RemoveParticle(dynamicParticleIndex, (int)g.x, (int)g.y);
             d++;
+        }
+        vacuumTimer = vacuumTimerInterval;
+
+        // if any particles get sucked, chunky sound turns on for vacuumTimerInterval seconds
+        if (d > 0)
+		{
+            chunkyTimer = vacuumTimerInterval;
+            smoothSound.volume = 0;
+            chunkySound.volume = chunkyVol;
+		}
+        // if chunky isn't playing, smooth should play
+        else if (chunkyTimer <= 0)
+        {
+            smoothSound.volume = smoothVol;
         }
         return d;
     }
