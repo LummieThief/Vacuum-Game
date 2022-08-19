@@ -12,7 +12,7 @@ public class RoomManager : MonoBehaviour
     {
         PlayerController player = FindObjectOfType<PlayerController>();
         entrances = FindObjectsOfType<Entrance>();
-        if (LevelLoader.instance.GetCurrentRoomCleaned()){
+        if (LevelLoader.instance != null && LevelLoader.instance.GetCurrentRoomCleaned()){
             roomClean = true;
             // tell dirt controller that the room is clean
         }
@@ -24,8 +24,13 @@ public class RoomManager : MonoBehaviour
             // tell dirt controller to do normal stuff
         }
         Vector2 spawnPos = transform.position;
-        int prevScene = LevelLoader.instance.GetPreviousScene();
-        int entrNum = LevelLoader.instance.GetEntrance();
+        int prevScene = 0;
+        int entrNum = 0;
+        if(LevelLoader.instance != null){
+            prevScene = LevelLoader.instance.GetPreviousScene();
+            entrNum = LevelLoader.instance.GetEntrance();
+        }
+        
         foreach(Entrance entr in entrances){
             if(entr.sceneNum == prevScene && entr.entranceNum == entrNum){
                 spawnPos = entr.spawn.position;
@@ -44,7 +49,7 @@ public class RoomManager : MonoBehaviour
     public void ExitRoom(int newScene, int newEntrance){
         if(!isLoading){
             PlayerController.instance?.StopPlayer();
-            LevelLoader.instance.LoadRoom(newScene, newEntrance);
+            LevelLoader.instance?.LoadRoom(newScene, newEntrance);
             isLoading = true;
         }
     }
