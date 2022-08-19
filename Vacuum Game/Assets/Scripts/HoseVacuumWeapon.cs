@@ -58,6 +58,7 @@ public class HoseVacuumWeapon : MonoBehaviour, IWeapon
         gameObject.SetActive(true);
     }
     public void Deactivate(){
+        isFiring = false;
         gameObject.SetActive(false);
     }
 }

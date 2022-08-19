@@ -20,6 +20,7 @@ public class PlayerController : LivingEntity
     //Vector2 mousePos;
     public FrameInput input;
     public IInteractable interactable {get; set;}
+    IInteractable holdInteract;
     private Transform holdItem;
 
     void Awake(){
@@ -47,7 +48,7 @@ public class PlayerController : LivingEntity
     void Update()
     {
         GatherInput();
-        wm.ReceiveInput(input);
+        wm.ReceiveInput(input, currentState == PlayerState.Idle);
         //Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         Vector2 desiredVelocity = input.movement.normalized * moveSpeed * wm.GetWeaponSpeedMult();
         //currentVelocity = 
@@ -55,7 +56,7 @@ public class PlayerController : LivingEntity
         if(crosshair != null) crosshair.position = input.mousePos;
         
         Vector2 lookDir = input.mousePos - (Vector2)transform.position;
-        if(input.interactDown && interactable != null) Interact();
+        if(input.interactDown && (interactable != null || holdInteract != null)) Interact();
     }
 
     void GatherInput(){
@@ -74,7 +75,7 @@ public class PlayerController : LivingEntity
     {
         if(currentState != PlayerState.Dead && currentState != PlayerState.Stop){
             Move();
-            Aim();
+            if(currentState != PlayerState.Hold) Aim(input.mousePos);
         }
         if(interactable != null) Debug.Log("Touching Interactable!");
     }
@@ -89,10 +90,10 @@ public class PlayerController : LivingEntity
         rb.MovePosition(rb.position + currentVelocity * Time.fixedDeltaTime);
     }
 
-    void Aim(){
-        Vector2 aimPos = input.mousePos;
+    void Aim(Vector2 aimPos){
+        //Vector2 aimPos = input.mousePos;
         if(currentState == PlayerState.Hold && holdItem != null){
-            aimPos = holdItem.position;
+            //aimPos = holdItem.position;
         }
         Vector2 lookDir = aimPos - rb.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
@@ -101,23 +102,29 @@ public class PlayerController : LivingEntity
     }
 
     private void Interact(){
-        interactable?.Interact(this);
+        if(holdInteract != null) ReleaseFurniture();
+        else interactable?.Interact(this);
     }
 
     public void GrabFurniture(Transform furn){
         holdItem = furn;
+        holdInteract = interactable;
+        Aim(holdItem.position);
         furn.SetParent(transform);
         currentState = PlayerState.Hold;
-
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     void ReleaseFurniture(){
         if(holdItem != null){
             holdItem.SetParent(null);
             holdItem = null;
+            interactable = holdInteract;
+            holdInteract = null;
             if(currentState == PlayerState.Hold){
                 currentState = PlayerState.Idle;
             }
+            rb.constraints = RigidbodyConstraints2D.None;
         }
     }
 
@@ -129,6 +136,7 @@ public class PlayerController : LivingEntity
         currentState = PlayerState.Idle;
         transform.position = spawnPos;
     }
+
 
     public struct FrameInput {
         public Vector2 movement;

@@ -9,6 +9,7 @@ public class WeaponsManager : MonoBehaviour
     [SerializeField] GameObject[] weaponPrefabs;
     int weaponIndex = 0;
     [SerializeField] Transform weaponHold;
+    bool canAttack = true;
     // Start is called before the first frame update
     void Awake()
     {
@@ -32,11 +33,17 @@ public class WeaponsManager : MonoBehaviour
         
     }
 
-    public void ReceiveInput(PlayerController.FrameInput newInput){ //bool attackDown, bool attackUp, bool altAttackDown, bool altAttackUp
-        if(newInput.attackDown) currentWeapon.AttackDown();
-        else if(newInput.attackUp) currentWeapon.AttackUp();
-        if(newInput.altAttackDown) currentWeapon.AltAttackDown();
-        else if(newInput.altAttackUp) currentWeapon.AltAttackUp();
+    public void ReceiveInput(PlayerController.FrameInput newInput, bool newCanAttack){ //bool attackDown, bool attackUp, bool altAttackDown, bool altAttackUp
+        if(canAttack && !newCanAttack) currentWeapon.Deactivate();
+        else if(!canAttack && newCanAttack) currentWeapon.Activate();
+        canAttack = newCanAttack;
+        if(canAttack){
+            if(newInput.attackDown) currentWeapon.AttackDown();
+            else if(newInput.attackUp) currentWeapon.AttackUp();
+            if(newInput.altAttackDown) currentWeapon.AltAttackDown();
+            else if(newInput.altAttackUp) currentWeapon.AltAttackUp();
+        }
+        
     }
     public float GetWeaponSpeedMult(){
         return currentWeapon.GetSlowPlayerMult();
