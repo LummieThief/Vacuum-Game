@@ -107,6 +107,7 @@ public class VacuumWeapon : MonoBehaviour, IWeapon
         gameObject.SetActive(true);
     }
     public void Deactivate(){
+        AttackUp();
         gameObject.SetActive(false);
     }
 }

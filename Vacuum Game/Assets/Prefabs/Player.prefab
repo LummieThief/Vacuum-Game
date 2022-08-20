@@ -93,6 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponPrefabs:
   - {fileID: 4952420055658441575, guid: 680eb69ebb0396046a073de3c16b5210, type: 3}
+  - {fileID: 2448020463484148761, guid: f7885003da82f0f409a01876e031f6ac, type: 3}
   weaponHold: {fileID: 714878151517161894}
 --- !u!61 &8739815368758466405
 BoxCollider2D:

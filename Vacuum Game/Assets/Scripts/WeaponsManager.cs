@@ -40,8 +40,9 @@ public class WeaponsManager : MonoBehaviour
         if(canAttack){
             if(newInput.attackDown) currentWeapon.AttackDown();
             else if(newInput.attackUp) currentWeapon.AttackUp();
-            if(newInput.altAttackDown) currentWeapon.AltAttackDown();
-            else if(newInput.altAttackUp) currentWeapon.AltAttackUp();
+            //if(newInput.altAttackDown) currentWeapon.AltAttackDown();
+            //else if(newInput.altAttackUp) currentWeapon.AltAttackUp();
+            if(newInput.altAttackDown) ChangeWeaponIndex(1);
         }
         
     }
