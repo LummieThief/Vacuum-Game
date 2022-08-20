@@ -99,6 +99,22 @@ public class RatAI : LivingEntity
         );
     }
 
+	public override void TakeDamage(float damage)
+	{
+		base.TakeDamage(damage);
+        if (!isDead)
+		{
+            AudioManager.instance.Play("ratHurt");
+            animator.SetTrigger("Hurt");
+        }
+        else
+		{
+            g.transform.rotation = animator.transform.rotation;
+            AudioManager.instance.Play("ratDie");
+        }
+        
+    }
+
 	private void OnDestroy()
 	{
         EnemySpawner.instance.numEnemies--;

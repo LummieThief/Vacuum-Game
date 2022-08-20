@@ -134,6 +134,12 @@ public class DustBunnyAI : LivingEntity
         if(!isDead){
             isSlowed = true;
             lastSlowTime = Time.time + slowTime;
+            AudioManager.instance.Play("bunnyHurt");
+            animator.SetTrigger("Hurt");
+        }
+        else
+		{
+            AudioManager.instance.Play("bunnyDie");
         }
     }
 

@@ -79,6 +79,7 @@ public class BroomWeapon : MonoBehaviour, IWeapon
         pointingRight = !pointingRight;
         isSwinging = true;
         hitbox.enabled = true;
+        AudioManager.instance.Play("broomSwing");
     }
 
     void EndAttack(){

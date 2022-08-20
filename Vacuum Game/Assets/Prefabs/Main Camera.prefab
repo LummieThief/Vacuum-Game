@@ -164,7 +164,7 @@ MonoBehaviour:
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0.1
-    loop: 1
+    loop: 0
     mixerGroup: {fileID: 24300002, guid: dd6d23c607bd16f4cb93960323b4ce10, type: 2}
     source: {fileID: 0}
   - name: bunnyDie
@@ -173,7 +173,7 @@ MonoBehaviour:
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
-    loop: 1
+    loop: 0
     mixerGroup: {fileID: 24300002, guid: dd6d23c607bd16f4cb93960323b4ce10, type: 2}
     source: {fileID: 0}
   - name: ratHurt
@@ -182,7 +182,7 @@ MonoBehaviour:
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0.1
-    loop: 1
+    loop: 0
     mixerGroup: {fileID: 24300002, guid: dd6d23c607bd16f4cb93960323b4ce10, type: 2}
     source: {fileID: 0}
   - name: ratDie
@@ -191,6 +191,15 @@ MonoBehaviour:
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
-    loop: 1
+    loop: 0
+    mixerGroup: {fileID: 24300002, guid: dd6d23c607bd16f4cb93960323b4ce10, type: 2}
+    source: {fileID: 0}
+  - name: broomSwing
+    clip: {fileID: 8300000, guid: 29152d99a0b53ba4a89ab5369911876c, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
     mixerGroup: {fileID: 24300002, guid: dd6d23c607bd16f4cb93960323b4ce10, type: 2}
     source: {fileID: 0}
