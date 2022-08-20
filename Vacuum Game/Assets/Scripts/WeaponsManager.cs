@@ -38,11 +38,12 @@ public class WeaponsManager : MonoBehaviour
         else if(!canAttack && newCanAttack) currentWeapon.Activate();
         canAttack = newCanAttack;
         if(canAttack){
+            if(newInput.altAttackDown) ChangeWeaponIndex(1);
             if(newInput.attackDown) currentWeapon.AttackDown();
             else if(newInput.attackUp) currentWeapon.AttackUp();
             //if(newInput.altAttackDown) currentWeapon.AltAttackDown();
             //else if(newInput.altAttackUp) currentWeapon.AltAttackUp();
-            if(newInput.altAttackDown) ChangeWeaponIndex(1);
+            
         }
         
     }
@@ -51,6 +52,7 @@ public class WeaponsManager : MonoBehaviour
     }
 
     void ChangeWeaponIndex(float change){
+        
         if(change == 0) return;
         else if(change < 0){
             weaponIndex--;
@@ -60,10 +62,12 @@ public class WeaponsManager : MonoBehaviour
             weaponIndex++;
             if(weaponIndex >= weapons.Count) weaponIndex = 0;
         }
+        Debug.Log("Changed Weapon " + weaponIndex);
         SetNewWeapon();
     }
 
     void SetNewWeapon(){
+        Debug.Log("Set New Weapn");
         currentWeapon.Deactivate();
         currentWeapon = weapons[weaponIndex];
         currentWeapon.Activate();

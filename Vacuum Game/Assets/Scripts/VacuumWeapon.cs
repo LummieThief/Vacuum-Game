@@ -65,7 +65,7 @@ public class VacuumWeapon : MonoBehaviour, IWeapon
                 if(col.gameObject.tag == "Dust"){
                     LivingEntity living = col.gameObject.GetComponent<LivingEntity>();
                     living?.TakeDamage(damage * Time.deltaTime);
-                    Debug.Log("Sucked BUNNY!");
+                    //Debug.Log("Sucked BUNNY!");
                 }
             }
             
