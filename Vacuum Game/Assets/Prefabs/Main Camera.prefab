@@ -158,3 +158,39 @@ MonoBehaviour:
     loop: 1
     mixerGroup: {fileID: 24300002, guid: dd6d23c607bd16f4cb93960323b4ce10, type: 2}
     source: {fileID: 0}
+  - name: bunnyHurt
+    clip: {fileID: 8300000, guid: 9c0c3614089dee443835c6ad0177417f, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 1
+    mixerGroup: {fileID: 24300002, guid: dd6d23c607bd16f4cb93960323b4ce10, type: 2}
+    source: {fileID: 0}
+  - name: bunnyDie
+    clip: {fileID: 8300000, guid: d57fae48f5537674da8a1ff77e44787c, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    mixerGroup: {fileID: 24300002, guid: dd6d23c607bd16f4cb93960323b4ce10, type: 2}
+    source: {fileID: 0}
+  - name: ratHurt
+    clip: {fileID: 8300000, guid: 817edb527db0f0d47a995aa325e36dad, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 1
+    mixerGroup: {fileID: 24300002, guid: dd6d23c607bd16f4cb93960323b4ce10, type: 2}
+    source: {fileID: 0}
+  - name: ratDie
+    clip: {fileID: 8300000, guid: cc377299f3a888549a06ab9f4c6189cb, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    mixerGroup: {fileID: 24300002, guid: dd6d23c607bd16f4cb93960323b4ce10, type: 2}
+    source: {fileID: 0}
