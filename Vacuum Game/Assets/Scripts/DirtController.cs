@@ -9,6 +9,7 @@ public class DirtController : MonoBehaviour
     private const int batchSize = 256;
     public int numStartingParticles;
     public int maxParticles;
+    [SerializeField] bool mouseSuckEnabled = false;
     [SerializeField] bool spawnParticlesOnAwake;
     [SerializeField] Vector2 startingParticleArea;
     [SerializeField] float mouseSuckSpeed;
@@ -254,7 +255,7 @@ public class DirtController : MonoBehaviour
         if (PauseMenu.paused) return;  
         
 
-        if (Input.GetKey(KeyCode.Mouse0))
+        if (mouseSuckEnabled && Input.GetKey(KeyCode.Mouse0))
         {
             // An example of how to use SuckSlice
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
