@@ -38,7 +38,7 @@ public class RoomManager : MonoBehaviour
                 break;
             }
         }
-        player.SpawnPlayerAt(spawnPos);
+        player?.SpawnPlayerAt(spawnPos);
     }
 
     // Update is called once per frame
