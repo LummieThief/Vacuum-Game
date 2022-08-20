@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 3
-  deathSprite: {fileID: 0}
+  deathSprite: {fileID: 599010579650115832, guid: 204a891dd2bf58e4b8fec228fb8103d5, type: 3}
   hurtShakeDuration: 0
   hurtShakeMagnitude: 0
   deathShakeDuration: 0

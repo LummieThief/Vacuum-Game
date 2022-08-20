@@ -50,7 +50,7 @@ MonoBehaviour:
   swingAngle: 89
   swingTransform: {fileID: 4952420055658441571}
   hitbox: {fileID: 5237167803923844343}
-  damage: 3
+  damage: 1
 --- !u!61 &5237167803923844343
 BoxCollider2D:
   m_ObjectHideFlags: 0

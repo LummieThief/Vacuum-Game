@@ -8,6 +8,7 @@ public class LivingEntity : MonoBehaviour
     public float maxHealth = 3;
     public GameObject deathSprite;
     protected bool isDead = false;
+    protected GameObject g;
     public event System.Action OnDeath;
     public float hurtShakeDuration;
     public float hurtShakeMagnitude;
@@ -38,7 +39,8 @@ public class LivingEntity : MonoBehaviour
         
         isDead = true;
         if(deathSprite != null){
-            Destroy(Instantiate(deathSprite, transform.position, Quaternion.identity), 1f);
+            g = Instantiate(deathSprite, transform.position, Quaternion.identity);
+            Destroy(g, 1f);
         }
         if(OnDeath != null){
             OnDeath();
