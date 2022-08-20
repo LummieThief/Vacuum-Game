@@ -29,9 +29,10 @@ public class VacuumWeapon : MonoBehaviour, IWeapon
     {
         if(isFiring){
             float suckRadius = maxRadius;
-            RaycastHit2D hit = Physics2D.Raycast(suckTransform.position, transform.up, maxRadius, blockLayers);
-            if(hit.collider != null){
-                suckRadius = hit.distance;
+            //RaycastHit2D hitLeft = Physics2D.Raycast(suckTransform.position, transform.up, maxRadius, blockLayers);
+            RaycastHit2D hitMid = Physics2D.Raycast(suckTransform.position, transform.up, maxRadius, blockLayers);
+            if(hitMid.collider != null){
+                suckRadius = hitMid.distance;
             }
             Debug.Log(suckRadius);
             DirtController.instance.SuckSlice(suckTransform.position, transform.up * suckRadius, suckAngle, suckSpeed, particleKillRadius);

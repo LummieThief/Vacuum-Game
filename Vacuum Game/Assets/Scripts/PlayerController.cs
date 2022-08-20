@@ -22,6 +22,8 @@ public class PlayerController : LivingEntity
     public IInteractable interactable {get; set;}
     IInteractable holdInteract;
     private Transform holdItem;
+    private Animator _anim;
+    private string currentAnim = "PlayerIdle";
 
     void Awake(){
         if(instance == null){
@@ -35,6 +37,7 @@ public class PlayerController : LivingEntity
         currentState = PlayerState.Idle;
         rb = GetComponent<Rigidbody2D>();
         wm = GetComponent<WeaponsManager>();
+        _anim = GetComponentInChildren<Animator>();
         input = new FrameInput{
             movement = Vector2.zero,
             mousePos = Vector2.zero,
@@ -78,6 +81,7 @@ public class PlayerController : LivingEntity
             if(currentState != PlayerState.Hold) Aim(input.mousePos);
         }
         if(interactable != null) Debug.Log("Touching Interactable!");
+        UpdateAnimation(GetAnimState());
     }
 
     void Move(){
@@ -135,6 +139,20 @@ public class PlayerController : LivingEntity
     public void SpawnPlayerAt(Vector2 spawnPos){
         currentState = PlayerState.Idle;
         transform.position = spawnPos;
+    }
+
+    string GetAnimState(){
+        if(currentState != PlayerState.Idle && currentState != PlayerState.Hold) return "PlayerIdle";
+        if(currentVelocity.magnitude < 0.3f) return currentState == PlayerState.Idle ? "PlayerIdle" : "PlayerAttackIdle";
+        else return currentState == PlayerState.Idle ? "PlayerWalk" : "PlayerAttackWalk";
+        //return "PlayerIdle";
+    }
+
+    void UpdateAnimation(string newAnim){
+        if(!newAnim.Equals(currentAnim)){
+            currentAnim = newAnim;
+            _anim.CrossFade(currentAnim, 0, 0);
+        }
     }
 
 
