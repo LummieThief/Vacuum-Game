@@ -130,7 +130,9 @@ public class BroomWeapon : MonoBehaviour, IWeapon
     }
 
     void OnTriggerEnter2D(Collider2D other){
+        Debug.Log("HIT!");
         if(other.tag == "Rat"){
+            Debug.Log(" RAT HIT!");
             LivingEntity livingEntity = other.gameObject.GetComponent<LivingEntity>();
             if(livingEntity != null){
                 livingEntity.TakeDamage(damage);

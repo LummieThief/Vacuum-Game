@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Wall
   - Floorboard
+  - Rat
+  - Dust
   layers:
   - Default
   - TransparentFX
@@ -14,7 +16,7 @@ TagManager:
   - Water
   - UI
   - Furniture
-  - 
+  - Enemy
   - 
   - 
   - 

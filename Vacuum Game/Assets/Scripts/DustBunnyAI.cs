@@ -18,6 +18,11 @@ public class DustBunnyAI : LivingEntity
     private Vector2 direction;
     private Vector2 nextDirection;
     private float radius;
+    private float speedMult = 1;
+    private float lastSlowTime;
+    bool isSlowed = false;
+    [SerializeField] float slowTime = 1f;
+    [SerializeField] float maxSlow = 0.5f;
 
     [SerializeField] Animator animator;
     // Start is called before the first frame update
@@ -30,6 +35,8 @@ public class DustBunnyAI : LivingEntity
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(isSlowed) speedMult = 1f;
+        else speedMult = maxSlow;
         if (jumping)
 		{
             if (timeSquatted < jumpSquat)
@@ -40,7 +47,7 @@ public class DustBunnyAI : LivingEntity
 			{
                 animator.SetBool("Airborne", true);
                 animator.ResetTrigger("Squat");
-                float dist = jumpSpeed * Time.deltaTime;
+                float dist = jumpSpeed * Time.deltaTime * speedMult;
 
                 if (dist + distanceJumped > jumpDistance)
                 {
@@ -119,6 +126,15 @@ public class DustBunnyAI : LivingEntity
             v.x * Mathf.Cos(delta) - v.y * Mathf.Sin(delta),
             v.x * Mathf.Sin(delta) + v.y * Mathf.Cos(delta)
         );
+    }
+
+    public override void TakeDamage(float damage)
+    {
+        base.TakeDamage(damage);
+        if(!isDead){
+            isSlowed = true;
+            lastSlowTime = Time.time + slowTime;
+        }
     }
 
     private void OnDestroy()

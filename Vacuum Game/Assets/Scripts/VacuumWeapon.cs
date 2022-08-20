@@ -16,10 +16,12 @@ public class VacuumWeapon : MonoBehaviour, IWeapon
     [SerializeField] float slowAccel;
     [SerializeField] float releaseAccel;
     [SerializeField] float currentSlowSpeed = 1f;
+    [SerializeField] float damage;
+    List<LivingEntity> suckedEnemies;
     // Start is called before the first frame update
     void Start()
     {
-        
+        suckedEnemies = new List<LivingEntity>();
     }
 
     // Update is called once per frame
@@ -33,6 +35,7 @@ public class VacuumWeapon : MonoBehaviour, IWeapon
             }
             Debug.Log(suckRadius);
             DirtController.instance.SuckSlice(suckTransform.position, transform.up * suckRadius, suckAngle, suckSpeed, particleKillRadius);
+            SuckEnemies(suckRadius);
             if(currentSlowSpeed > slowSpeed){
                 currentSlowSpeed -= Time.deltaTime * slowAccel;
                 currentSlowSpeed = Mathf.Max(currentSlowSpeed, slowSpeed);
@@ -49,10 +52,24 @@ public class VacuumWeapon : MonoBehaviour, IWeapon
     void SuckEnemies(float radius){
         Collider2D[] cols = Physics2D.OverlapCircleAll(suckTransform.position, radius, enemyLayer);
         foreach(Collider2D col in cols){
-            if(Vector2.Angle((Vector2)suckTransform.position, (Vector2)col.transform.position) < suckAngle / 2f){
-                //add to list
+            Vector2 bunnyDir = col.transform.position - suckTransform.position;
+            //float angle = Mathf.Atan2(bunnyDir.y, bunnyDir.x) * Mathf.Rad2Deg - 90f;
+            //angle = Mathf.Abs(angle);
+            //float corrected = Mathf.Abs(angle - suckTransform.eulerAngles.z);
+            //if(corrected > 180) corrected = 360 - corrected;
+            //Debug.Log("Corrected: " + corrected);
+            //Debug.Log("Angle: " + angle + ", Euler: " + suckTransform.eulerAngles.z);
+            
+            if((Vector2.Angle(bunnyDir, transform.up) < suckAngle / 2)){
+                if(col.gameObject.tag == "Dust"){
+                    LivingEntity living = col.gameObject.GetComponent<LivingEntity>();
+                    living?.TakeDamage(damage * Time.deltaTime);
+                    Debug.Log("Sucked BUNNY!");
+                }
             }
-            //(Vector2.Angle((Vector2)column - center, direction) < degrees / 2
+            
+            //if(Vector2.Angle((Vector2)suckTransform.position, (Vector2)col.transform.position) < suckAngle / 2f){
+                
         }
     }
 

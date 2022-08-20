@@ -103,5 +103,11 @@ MonoBehaviour:
   blockLayers:
     serializedVersion: 2
     m_Bits: 0
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
   slowSpeed: 0.2
   slowAccel: 5
+  releaseAccel: 5
+  currentSlowSpeed: 1
+  damage: 10
