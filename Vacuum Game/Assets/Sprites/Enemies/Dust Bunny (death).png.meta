@@ -1,7 +1,31 @@
 fileFormatVersion: 2
 guid: f92a43c72fde84b47b9f98e402eacf4f
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -764264921501999358
+    second: Dust Bunny (death)_0
+  - first:
+      213: 5127653147407680966
+    second: Dust Bunny (death)_1
+  - first:
+      213: -2136798552829022502
+    second: Dust Bunny (death)_2
+  - first:
+      213: 8691455148715316233
+    second: Dust Bunny (death)_3
+  - first:
+      213: -6819009287691869852
+    second: Dust Bunny (death)_4
+  - first:
+      213: -4118130133982051701
+    second: Dust Bunny (death)_5
+  - first:
+      213: 2438420051253235668
+    second: Dust Bunny (death)_6
+  - first:
+      213: 7321307034392862335
+    second: Dust Bunny (death)_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -113,11 +137,179 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Dust Bunny (death)_0
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 312
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20fd4976a19c465f0800000000000000
+      internalID: -764264921501999358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dust Bunny (death)_1
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 312
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c506aebe55192740800000000000000
+      internalID: 5127653147407680966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dust Bunny (death)_2
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 312
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adeae0699019852e0800000000000000
+      internalID: -2136798552829022502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dust Bunny (death)_3
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 184
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9049a6098604e9870800000000000000
+      internalID: 8691455148715316233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dust Bunny (death)_4
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 184
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46169077e230e51a0800000000000000
+      internalID: -6819009287691869852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dust Bunny (death)_5
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 184
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b820b21467679d6c0800000000000000
+      internalID: -4118130133982051701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dust Bunny (death)_6
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 56
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4df83280e1207d120800000000000000
+      internalID: 2438420051253235668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dust Bunny (death)_7
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 56
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7e1e8435f18a9560800000000000000
+      internalID: 7321307034392862335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 1ce91b1eed4f6fe4fb7e79ca07a81b36
     internalID: 0
     vertices: []
     indices: 
