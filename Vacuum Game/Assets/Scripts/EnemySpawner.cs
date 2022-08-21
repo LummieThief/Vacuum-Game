@@ -10,6 +10,8 @@ public class EnemySpawner : MonoBehaviour
 	[SerializeField] float spawnRate;
 	[SerializeField] float ratSpawnPercentage;
 	[SerializeField] int spawnCap;
+	[SerializeField] float spawnCooldown;
+	private float spawnCooldownTimer;
 	[HideInInspector] public int numEnemies;
 
 	public static EnemySpawner instance;
@@ -28,7 +30,15 @@ public class EnemySpawner : MonoBehaviour
 	private void Update()
 	{
 		if (PauseMenu.paused) return;
-		AttemptSpawn();
+
+		if (spawnCooldownTimer > 0)
+		{
+			spawnCooldownTimer -= Time.deltaTime;
+		}
+		else
+		{
+			AttemptSpawn();
+		}
 	}
 
 	private void AttemptSpawn()
@@ -59,6 +69,7 @@ public class EnemySpawner : MonoBehaviour
 
 			numEnemies++;
 			g.transform.position = point;
+			spawnCooldownTimer = spawnCooldown;
 		}
 
 	}
