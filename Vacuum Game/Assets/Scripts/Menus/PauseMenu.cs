@@ -47,6 +47,7 @@ public class PauseMenu : MonoBehaviour
 	{
 		Resume();
 		MainMenu.UI.SetActive(true);
+		MusicController.instance.OpenedMenu();
 		SceneManager.LoadScene("Main Menu");
 	}
 }

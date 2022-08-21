@@ -25,6 +25,7 @@ public class RatAI : LivingEntity
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (PauseMenu.paused) return;
         if (scurrying)
         {
             float dist = scurrySpeed * Time.deltaTime;

@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour
 	{
 		MainMenu.UI.SetActive(false);
 		SceneManager.LoadScene("Main Hall");
+		MusicController.instance.ClosedMenu();
 	}
 
 	public void Credits()

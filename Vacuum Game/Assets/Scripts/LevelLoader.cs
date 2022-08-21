@@ -32,7 +32,13 @@ public class LevelLoader : MonoBehaviour
         SceneManager.LoadScene(newScene);
         if(!roomCleanedDict.ContainsKey(currentScene)){
             roomCleanedDict.Add(currentScene, false);
+            if (currentScene == 1)
+			{
+                roomCleanedDict[currentScene] = true;
+			}
         }
+
+        MusicController.instance.SwapTrack(roomCleanedDict[currentScene]);
     }
 
     public void LoadRoom(int newScene, int newEntrance){
@@ -61,6 +67,7 @@ public class LevelLoader : MonoBehaviour
         else{
             roomCleanedDict[currentScene] = cleanState;
         }
+        MusicController.instance.SwapTrack(cleanState);
     }
 
     public bool GetCurrentRoomCleaned(){

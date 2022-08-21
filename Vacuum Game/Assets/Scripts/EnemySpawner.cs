@@ -27,6 +27,7 @@ public class EnemySpawner : MonoBehaviour
 
 	private void Update()
 	{
+		if (PauseMenu.paused) return;
 		AttemptSpawn();
 	}
 

@@ -50,7 +50,19 @@ public class PlayerController : LivingEntity
 
     void Update()
     {
-        GatherInput();
+        if (PauseMenu.paused)
+		{
+            input.attackDown = false;
+            input.attackUp = true;
+            input.altAttackDown = false;
+            input.altAttackUp = true;
+            input.interactDown = false;
+        }
+        else
+		{
+            GatherInput();
+        }
+        
         wm.ReceiveInput(input, currentState == PlayerState.Idle);
         //Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         Vector2 desiredVelocity = input.movement.normalized * moveSpeed * wm.GetWeaponSpeedMult();
@@ -76,7 +88,8 @@ public class PlayerController : LivingEntity
 
     void FixedUpdate()
     {
-        if(currentState != PlayerState.Dead && currentState != PlayerState.Stop){
+        if (PauseMenu.paused) return;
+        if (currentState != PlayerState.Dead && currentState != PlayerState.Stop){
             Move();
             if(currentState != PlayerState.Hold) Aim(input.mousePos);
         }

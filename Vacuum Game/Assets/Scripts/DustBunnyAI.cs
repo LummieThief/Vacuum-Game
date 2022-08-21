@@ -35,6 +35,7 @@ public class DustBunnyAI : LivingEntity
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (PauseMenu.paused) return;
         if(!isSlowed) speedMult = 1f;
         else speedMult = maxSlow;
         if (jumping)

@@ -20,7 +20,6 @@ public class RoomManager : MonoBehaviour
             if(DirtController.instance != null && !DirtController.instance.hasSpawnedStartParticles){
                 DirtController.instance.AddStartingParticles();
             }
-            
             // tell dirt controller to do normal stuff
         }
         Vector2 spawnPos = transform.position;
