@@ -99,6 +99,10 @@ public class PlayerController : LivingEntity
 
     void Move(){
         Vector2 desiredVelocity = input.movement.normalized * moveSpeed * wm.GetWeaponSpeedMult();
+        if (holdItem != null)
+		{
+            desiredVelocity *= 0.5f;
+		}
         Vector2 diffVector = desiredVelocity - currentVelocity;
         float frameAccel = Mathf.Clamp(acceleration * Time.deltaTime, 0, 1);
         Vector2 changeVector = diffVector * frameAccel;
