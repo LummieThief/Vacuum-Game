@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 714878151284139025}
   - component: {fileID: 714878151284139020}
   - component: {fileID: 714878151284139021}
-  - component: {fileID: 8739815368758466405}
+  - component: {fileID: 6495603130750245015}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -94,8 +94,8 @@ MonoBehaviour:
   - {fileID: 4952420055658441575, guid: 680eb69ebb0396046a073de3c16b5210, type: 3}
   - {fileID: 2448020463484148761, guid: f7885003da82f0f409a01876e031f6ac, type: 3}
   weaponHold: {fileID: 714878151517161894}
---- !u!61 &8739815368758466405
-BoxCollider2D:
+--- !u!58 &6495603130750245015
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -108,18 +108,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Radius: 0.5
 --- !u!1 &714878151517161893
 GameObject:
   m_ObjectHideFlags: 0
