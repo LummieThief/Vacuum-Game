@@ -62,12 +62,12 @@ public class WeaponsManager : MonoBehaviour
             weaponIndex++;
             if(weaponIndex >= weapons.Count) weaponIndex = 0;
         }
-        Debug.Log("Changed Weapon " + weaponIndex);
+        //Debug.Log("Changed Weapon " + weaponIndex);
         SetNewWeapon();
     }
 
     void SetNewWeapon(){
-        Debug.Log("Set New Weapn");
+        //Debug.Log("Set New Weapn");
         currentWeapon.Deactivate();
         currentWeapon = weapons[weaponIndex];
         currentWeapon.Activate();

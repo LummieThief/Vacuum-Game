@@ -139,7 +139,7 @@ public class DustBunnyAI : LivingEntity
             lastSlowTime = Time.time + slowTime;
             if(nextSoundTime < Time.time){
                 AudioManager.instance.Play("bunnyHurt");
-                nextSoundTime = Time.time + 1f;
+                nextSoundTime = Time.time + 0.3f;
             }
             animator.SetTrigger("Hurt");
         }

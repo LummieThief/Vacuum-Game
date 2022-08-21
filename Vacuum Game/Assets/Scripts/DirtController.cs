@@ -456,14 +456,14 @@ public class DirtController : MonoBehaviour
         Matrix4x4 particle = matrices[c][b][i];
         Vector4 column = particle.GetColumn(3);
 
-        RaycastHit2D hit = Physics2D.Raycast(column, Vector2.zero, LayerMask.GetMask("Furniture"));
+        RaycastHit2D hit = Physics2D.Raycast(column, Vector2.zero, 999f, LayerMask.GetMask("Furniture"));
         
         float duration = 1f;
         if (hit.collider == null)
 		{
-            Debug.DrawRay(column, Vector2.up, Color.red, duration);
-            Debug.DrawRay(column, (Vector2.up + Vector2.left).normalized * 0.2f, Color.red, duration);
-            Debug.DrawRay(column, (Vector2.up + Vector2.right).normalized * 0.2f, Color.red, duration);
+            Debug.DrawRay(column, Vector2.up, Color.white, duration);
+            Debug.DrawRay(column, (Vector2.up + Vector2.left).normalized * 0.2f, Color.white, duration);
+            Debug.DrawRay(column, (Vector2.up + Vector2.right).normalized * 0.2f, Color.white, duration);
         }
         else
 		{

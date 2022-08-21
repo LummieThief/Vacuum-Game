@@ -93,7 +93,7 @@ public class PlayerController : LivingEntity
             Move();
             if(currentState != PlayerState.Hold) Aim(input.mousePos);
         }
-        if(interactable != null) Debug.Log("Touching Interactable!");
+        //if(interactable != null) Debug.Log("Touching Interactable!");
         UpdateAnimation(GetAnimState());
     }
 

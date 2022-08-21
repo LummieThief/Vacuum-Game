@@ -107,7 +107,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128
-  slowSpeed: 0.7
+  slowSpeed: 0.6
   slowAccel: 5
   releaseAccel: 5
   currentSlowSpeed: 1

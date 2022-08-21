@@ -34,7 +34,7 @@ public class VacuumWeapon : MonoBehaviour, IWeapon
             if(hitMid.collider != null){
                 suckRadius = hitMid.distance;
             }
-            Debug.Log(suckRadius);
+            //Debug.Log(suckRadius);
             Debug.DrawRay(suckTransform.position, transform.up * suckRadius);
             DirtController.instance.SuckSlice(suckTransform.position, transform.up * suckRadius, suckAngle, suckSpeed, particleKillRadius);
             SuckEnemies(suckRadius);
@@ -77,22 +77,22 @@ public class VacuumWeapon : MonoBehaviour, IWeapon
 
     public void AttackDown(){
         isFiring = true;
-        Debug.Log("Started Firing!");
+        //Debug.Log("Started Firing!");
     }
 
     public void AttackUp(){
         isFiring = false;
-        Debug.Log("Stopped Firing!");
+        //Debug.Log("Stopped Firing!");
     }
 
     public void AltAttackDown(){
         isFiring = true;
-        Debug.Log("Started Alt Firing!");
+        //Debug.Log("Started Alt Firing!");
     }
 
     public void AltAttackUp(){
         isFiring = false;
-        Debug.Log("Stopped Alt Firing!");
+        //Debug.Log("Stopped Alt Firing!");
     }
 
     public float GetSlowPlayerMult(){

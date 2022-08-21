@@ -131,8 +131,13 @@ public class BroomWeapon : MonoBehaviour, IWeapon
     }
 
     void OnTriggerEnter2D(Collider2D other){
-        Debug.Log("HIT!");
         if(other.tag == "Rat"){
+            RaycastHit2D hit = Physics2D.Raycast(other.transform.position, Vector2.zero, 999f, LayerMask.GetMask("Furniture"));
+            if (hit.collider != null)
+			{
+                Debug.Log("rat blocked");
+                return;
+			}
             Debug.Log(" RAT HIT!");
             LivingEntity livingEntity = other.gameObject.GetComponent<LivingEntity>();
             if(livingEntity != null){
