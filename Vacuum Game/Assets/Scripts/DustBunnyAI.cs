@@ -139,6 +139,7 @@ public class DustBunnyAI : LivingEntity
         }
         else
 		{
+            g.transform.rotation = animator.transform.rotation;
             AudioManager.instance.Play("bunnyDie");
         }
     }
