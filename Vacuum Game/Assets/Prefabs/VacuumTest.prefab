@@ -98,7 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxRadius: 2.5
   particleKillRadius: 1.2
-  suckAngle: 60
+  suckAngle: 40
   suckSpeed: 100
   suckTransform: {fileID: 2448020463484148764}
   blockLayers:

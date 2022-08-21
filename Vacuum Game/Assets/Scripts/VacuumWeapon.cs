@@ -35,6 +35,7 @@ public class VacuumWeapon : MonoBehaviour, IWeapon
                 suckRadius = hitMid.distance;
             }
             Debug.Log(suckRadius);
+            Debug.DrawRay(suckTransform.position, transform.up * suckRadius);
             DirtController.instance.SuckSlice(suckTransform.position, transform.up * suckRadius, suckAngle, suckSpeed, particleKillRadius);
             SuckEnemies(suckRadius);
             if(currentSlowSpeed > slowSpeed){
