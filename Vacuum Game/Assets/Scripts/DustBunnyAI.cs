@@ -23,6 +23,8 @@ public class DustBunnyAI : LivingEntity
     bool isSlowed = false;
     [SerializeField] float slowTime = 1f;
     [SerializeField] float maxSlow = 0.5f;
+    float nextSoundTime;
+
 
     [SerializeField] Animator animator;
     // Start is called before the first frame update
@@ -135,7 +137,10 @@ public class DustBunnyAI : LivingEntity
         if(!isDead){
             isSlowed = true;
             lastSlowTime = Time.time + slowTime;
-            AudioManager.instance.Play("bunnyHurt");
+            if(nextSoundTime < Time.time){
+                AudioManager.instance.Play("bunnyHurt");
+                nextSoundTime = Time.time + 1f;
+            }
             animator.SetTrigger("Hurt");
         }
         else
