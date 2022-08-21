@@ -182,7 +182,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &176235986
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3020,6 +3020,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numStartingParticles: 2000
   maxParticles: 15000
+  mouseSuckEnabled: 0
   spawnParticlesOnAwake: 1
   startingParticleArea: {x: 20, y: 20}
   mouseSuckSpeed: 100

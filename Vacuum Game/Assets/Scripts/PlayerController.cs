@@ -8,7 +8,7 @@ public class PlayerController : LivingEntity
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] float acceleration;
     [SerializeField] Camera cam;
-    [SerializeField] Transform crosshair;
+    //[SerializeField] Transform crosshair;
     private Rigidbody2D rb;
     private WeaponsManager wm;
     private enum PlayerState{
@@ -56,7 +56,7 @@ public class PlayerController : LivingEntity
         Vector2 desiredVelocity = input.movement.normalized * moveSpeed * wm.GetWeaponSpeedMult();
         //currentVelocity = 
         //mousePos = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);
-        if(crosshair != null) crosshair.position = input.mousePos;
+        //if(crosshair != null) crosshair.position = input.mousePos;
         
         Vector2 lookDir = input.mousePos - (Vector2)transform.position;
         if(input.interactDown && (interactable != null || holdInteract != null)) Interact();
