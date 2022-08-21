@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e1d557937e25c940b7e9e0b4c77c33b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  maxHealth: 6
   deathSprite: {fileID: 6318167897188183791, guid: a9372670550dee84ab0e1d5c3d92f1cc, type: 3}
   hurtShakeDuration: 0
   hurtShakeMagnitude: 0
