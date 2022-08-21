@@ -991,6 +991,7 @@ MonoBehaviour:
   spawn: {fileID: 257497239}
   sceneNum: 1
   entranceNum: 0
+  message: 
 --- !u!212 &1011843268
 SpriteRenderer:
   m_ObjectHideFlags: 0

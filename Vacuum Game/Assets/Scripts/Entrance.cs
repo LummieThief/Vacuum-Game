@@ -8,6 +8,7 @@ public class Entrance : MonoBehaviour, IInteractable
     public Transform spawn;
     public int sceneNum;
     public int entranceNum;
+    [SerializeField] string message;
     void Awake(){
         if(roomManager == null) roomManager = FindObjectOfType<RoomManager>();
         if(spawn == null) spawn = transform;
@@ -19,12 +20,14 @@ public class Entrance : MonoBehaviour, IInteractable
     void OnTriggerEnter2D(Collider2D other){
         if(other.tag == "Player"){
             PlayerController.instance.interactable = this;
+            Popup.instance?.SetText(message);
         }
     }
 
     void OnTriggerExit2D(Collider2D other){
         if(other.tag == "Player"){
-            if(PlayerController.instance.interactable is Entrance entr && entr == this){
+            Popup.instance?.SetText("");
+            if (PlayerController.instance.interactable is Entrance entr && entr == this){
                 PlayerController.instance.interactable = null;
             }
         }

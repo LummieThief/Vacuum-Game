@@ -45,6 +45,7 @@ public class LevelLoader : MonoBehaviour
         if(newScene >= 0 && newScene < SceneManager.sceneCountInBuildSettings){
             entrance = newEntrance;
             LoadScene(newScene);
+            Popup.instance?.SetText("");
         }
         else{
             Debug.Log("Scene number " + newScene + " does not exist!");

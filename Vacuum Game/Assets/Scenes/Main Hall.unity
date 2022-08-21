@@ -1160,6 +1160,7 @@ MonoBehaviour:
   spawn: {fileID: 10694142}
   sceneNum: 3
   entranceNum: 0
+  message: 'Difficulty: 1/3'
 --- !u!212 &669423122
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1287,6 +1288,7 @@ MonoBehaviour:
   spawn: {fileID: 890263307}
   sceneNum: 2
   entranceNum: 0
+  message: 'Difficulty: 0/3'
 --- !u!212 &734142129
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2757,6 +2759,7 @@ MonoBehaviour:
   spawn: {fileID: 1612349855}
   sceneNum: 5
   entranceNum: 0
+  message: 'Difficulty: 3/3'
 --- !u!212 &1067506791
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6428,6 +6431,7 @@ MonoBehaviour:
   spawn: {fileID: 1273768966}
   sceneNum: 4
   entranceNum: 0
+  message: 'Difficulty: 2/3'
 --- !u!212 &1497464226
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6724,6 +6728,7 @@ MonoBehaviour:
   spawn: {fileID: 1785196777}
   sceneNum: 0
   entranceNum: 0
+  message: 
 --- !u!1 &1875543416
 GameObject:
   m_ObjectHideFlags: 0
