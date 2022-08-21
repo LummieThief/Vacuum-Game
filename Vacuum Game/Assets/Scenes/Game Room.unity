@@ -4690,4 +4690,5 @@ MonoBehaviour:
   spawnRate: 5
   ratSpawnPercentage: 0.2
   spawnCap: 15
+  spawnCooldown: 2
   numEnemies: 0

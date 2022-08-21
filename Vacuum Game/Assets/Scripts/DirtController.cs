@@ -475,7 +475,7 @@ public class DirtController : MonoBehaviour
 
         if (hit.collider != null)
         {
-            return column;
+            return hit.collider.transform.position;
         }
         else
         {

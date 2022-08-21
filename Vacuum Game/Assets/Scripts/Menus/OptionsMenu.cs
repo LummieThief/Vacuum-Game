@@ -12,7 +12,13 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] AudioMixer musicMixer;
     [SerializeField] AudioMixer effectsMixer;
 
-    public void ChangeMusicVolume(float newVol)
+	private void Awake()
+	{
+        ChangeMusicVolume(0.5f);
+        ChangeEffectsVolume(0.5f);
+    }
+
+	public void ChangeMusicVolume(float newVol)
     {
         if (newVol == 0)
         {
