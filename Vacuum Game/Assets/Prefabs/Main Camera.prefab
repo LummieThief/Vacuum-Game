@@ -160,10 +160,10 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: bunnyHurt
     clip: {fileID: 8300000, guid: 9c0c3614089dee443835c6ad0177417f, type: 3}
-    volume: 1
+    volume: 0.6
     volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0.1
+    pitch: 0.7
+    pitchVariance: 0
     loop: 0
     mixerGroup: {fileID: 24300002, guid: dd6d23c607bd16f4cb93960323b4ce10, type: 2}
     source: {fileID: 0}
